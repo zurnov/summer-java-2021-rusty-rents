@@ -1,6 +1,4 @@
-package test;
-
-import test.LandLordMainMenu;
+package PLACEHOLDER;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +7,7 @@ import java.awt.event.ActionListener;
 public class RenterMainMenu extends JFrame implements ActionListener{
 
 
-    JButton settingsButton, accountButton, buyAppartmentButton, rentAppartmentButton;
+    JButton settingsButton, accountButton, buyAppartmentButton, rentAppartmentButton, logOutButton;
     JLabel label2 = new JLabel();
 
     RenterMainMenu() {
@@ -18,6 +16,15 @@ public class RenterMainMenu extends JFrame implements ActionListener{
         ImageIcon appIcon = new ImageIcon("RustyRentsIcon.png");
         ImageIcon settingsIcon = new ImageIcon("SettingsIcon.png");
         ImageIcon appLogo = new ImageIcon("RustyRentsLogo.png");
+        ImageIcon logOutImage = new ImageIcon("LogOutImage.png");
+
+        logOutButton = new JButton(logOutImage);
+        logOutButton.setBounds(5,5,50,50);
+        logOutButton.setFocusable(false);
+        logOutButton.addActionListener(this);
+        logOutButton.setOpaque(false);
+        logOutButton.setContentAreaFilled(false);
+        logOutButton.setBorderPainted(false);
 
         settingsButton = new JButton(settingsIcon);
         settingsButton.setBounds(427, 5, 50, 50);
@@ -86,8 +93,25 @@ public class RenterMainMenu extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==settingsButton) {
-            LandLordMainMenu test = new LandLordMainMenu();
-            test.add(label2);
+            this.dispose();
+            new LandLordMainMenu();
+        }
+        else if (e.getSource()==buyAppartmentButton) {
+            this.dispose();
+            new BuyAppartment();
+        }
+        else if (e.getSource()==rentAppartmentButton) {
+            this.dispose();
+            new RentAppartment();
+        }
+        else if (e.getSource()==accountButton) {
+            this.dispose();
+            new RenterAccount();
+        }
+        else if (e.getSource()==logOutButton) {
+            Register.setCustomer("");
+            this.dispose();
+            new LogIn();
         }
     }
 }

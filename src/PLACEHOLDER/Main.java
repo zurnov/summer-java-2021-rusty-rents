@@ -1,6 +1,4 @@
-package test;
-
-import test.LogIn;
+package PLACEHOLDER;
 
 public class Main {
 

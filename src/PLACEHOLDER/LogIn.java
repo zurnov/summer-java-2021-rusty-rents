@@ -1,4 +1,4 @@
-package test;
+package PLACEHOLDER;
 
 import javax.swing.*;
 import java.awt.*;
@@ -92,6 +92,9 @@ public class LogIn extends JFrame implements ActionListener {
             }
             if (Register.getCustomer().equalsIgnoreCase("Renter")) {
                 new RenterMainMenu();
+            }
+            if (!Register.getCustomer().equalsIgnoreCase("landlord") || !Register.getCustomer().equalsIgnoreCase("Renter")) {
+                // pop up window
             }
         }
     }

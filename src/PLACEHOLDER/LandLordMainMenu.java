@@ -1,12 +1,13 @@
-package test;
+package PLACEHOLDER;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LandLordMainMenu extends JFrame implements ActionListener{
 
-    JButton settingsButton, accountButton, buyAppartmentButton, sellAppartmentButton;
+    JButton settingsButton, accountButton, buyAppartmentButton, sellAppartmentButton, logOutButton;
     JLabel label2 = new JLabel();
 
     LandLordMainMenu() {
@@ -15,9 +16,18 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
         ImageIcon appIcon = new ImageIcon("RustyRentsIcon.png");
         ImageIcon settingsIcon = new ImageIcon("SettingsIcon.png");
         ImageIcon appLogo = new ImageIcon("RustyRentsLogo.png");
+        ImageIcon logOutImage = new ImageIcon("LogOutImage.png");
+
+        logOutButton = new JButton(logOutImage);
+        logOutButton.setBounds(5,5,50,50);
+        logOutButton.setFocusable(false);
+        logOutButton.addActionListener(this);
+        logOutButton.setOpaque(false);
+        logOutButton.setContentAreaFilled(false);
+        logOutButton.setBorderPainted(false);
 
         settingsButton = new JButton(settingsIcon);
-        settingsButton.setBounds(417, 5, 50, 50);
+        settingsButton.setBounds(427, 5, 50, 50);
         settingsButton.setFocusable(false);
         settingsButton.addActionListener(this);
         settingsButton.setOpaque(false);
@@ -25,12 +35,12 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
         settingsButton.setBorderPainted(false);
 
         accountButton = new JButton();
-        accountButton.setText("НАЕМИ");
+        accountButton.setText("АКАУНТ");
         accountButton.setFocusable(false);
         accountButton.setOpaque(false);
         accountButton.setContentAreaFilled(true);
         accountButton.setBorderPainted(true);
-        accountButton.setBounds(10, 550, 150, 100);
+        accountButton.setBounds(325, 550, 150, 100);
         accountButton.addActionListener(this);
 
         buyAppartmentButton = new JButton();
@@ -39,7 +49,7 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
         buyAppartmentButton.setOpaque(false);
         buyAppartmentButton.setContentAreaFilled(true);
         buyAppartmentButton.setBorderPainted(true);
-        buyAppartmentButton.setBounds(170, 550, 150, 100);
+        buyAppartmentButton.setBounds(165, 550, 150, 100);
         buyAppartmentButton.addActionListener(this);
 
         sellAppartmentButton = new JButton();
@@ -48,7 +58,7 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
         sellAppartmentButton.setOpaque(false);
         sellAppartmentButton.setContentAreaFilled(true);
         sellAppartmentButton.setBorderPainted(true);
-        sellAppartmentButton.setBounds(330, 550, 150, 100);
+        sellAppartmentButton.setBounds(5, 550, 150, 100);
         sellAppartmentButton.addActionListener(this);
 
         JLabel backgroundLabel = new JLabel();
@@ -57,7 +67,7 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
 
         JLabel logoImage = new JLabel();
         logoImage.setIcon(appLogo);
-        logoImage.setBounds(100, 100, 100, 100);
+        logoImage.setBounds(130, 0, 300, 300);
 
         JPanel mainMenuPanel = new JPanel();
         mainMenuPanel.add(backgroundLabel);
@@ -70,12 +80,13 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
         layeredPane.add(buyAppartmentButton, Integer.valueOf(3));
         layeredPane.add(sellAppartmentButton, Integer.valueOf(4));
         layeredPane.add(accountButton, Integer.valueOf(5));
+        layeredPane.add(logOutButton, Integer.valueOf(6));
 
         this.setIconImage(appIcon.getImage());
         this.setTitle("Rusty Rents test.Main Menu");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setSize(490,700);
+        this.setSize(500,700);
         this.setVisible(true);
         this.add(layeredPane);
     }
@@ -83,8 +94,25 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==settingsButton) {
-            LandLordMainMenu test = new LandLordMainMenu();
-            test.add(label2);
+            this.dispose();
+            new LandLordMainMenu();
+        }
+        else if (e.getSource()==buyAppartmentButton) {
+            this.dispose();
+            new BuyAppartment();
+        }
+        else if (e.getSource()==sellAppartmentButton) {
+            this.dispose();
+            new SellAppartment();
+        }
+        else if (e.getSource()==accountButton) {
+            this.dispose();
+            new LandLordAccount();
+        }
+        else if (e.getSource()==logOutButton) {
+            Register.setCustomer("");
+            this.dispose();
+            new LogIn();
         }
     }
 }

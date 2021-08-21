@@ -1,4 +1,4 @@
-package test;
+package PLACEHOLDER;
 
 import javax.swing.*;
 import java.awt.*;
