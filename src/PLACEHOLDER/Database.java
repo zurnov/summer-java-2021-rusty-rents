@@ -31,6 +31,7 @@ public class Database {
         System.out.println(query);
         try {
             statement.executeQuery(query);
+            statement.executeQuery("COMMIT");
         } catch(Exception e) {System.out.println(e);}
 
     }
@@ -43,6 +44,7 @@ public class Database {
         System.out.println(query);
         try {
             statement.executeQuery(query);
+            statement.executeQuery("COMMIT");
         } catch(Exception e) {System.out.println(e);}
 
         storeLogin(username, password);
