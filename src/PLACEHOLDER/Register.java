@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 
 public class Register extends JFrame implements ActionListener {
     static String customer;
@@ -23,6 +24,11 @@ public class Register extends JFrame implements ActionListener {
 
     JComboBox customerStatusComboBox;
     JComboBox preferredLocationComboBox;
+
+    JTextField usernameTextField;
+    JPasswordField passwordTextField;
+    JPasswordField confirmPasswordTextField;
+    JTextField emailTextField;
 
     public Register(){
         ImageIcon appIcon = new ImageIcon ("RustyRentsIcon.png");
@@ -98,15 +104,15 @@ public class Register extends JFrame implements ActionListener {
         JLabel confirmPasswordLabel=new JLabel("Confirm password:");
         JLabel emailLabel=new JLabel("E-mail:");
 
-        JTextField usernameTextField= new JTextField();
+        usernameTextField= new JTextField();
         usernameTextField.setPreferredSize(new Dimension(70,20));
-        JPasswordField passwordTextField=new JPasswordField();
+        passwordTextField=new JPasswordField();
         passwordTextField.setPreferredSize(new Dimension(70,20));
         passwordTextField.setEchoChar('*');
-        JPasswordField confirmPasswordTextField=new JPasswordField();
+        confirmPasswordTextField=new JPasswordField();
         confirmPasswordTextField.setPreferredSize(new Dimension(70,20));
         confirmPasswordTextField.setEchoChar('*');
-        JTextField emailTextField=new JTextField();
+        emailTextField=new JTextField();
         emailTextField.setPreferredSize(new Dimension(70,20));
 
         nextStepButton.addActionListener(this);
@@ -231,7 +237,23 @@ public class Register extends JFrame implements ActionListener {
         }
         if(e.getSource()==nextStepButton){
             if(customer.equals("Renter")) {
-                cardLayout.show(panelContainer, "3");
+
+                // check if any empty fields
+                if (usernameTextField.getText().equals("")
+                    || passwordTextField.getPassword().length == 0
+                    || confirmPasswordTextField.getPassword().length == 0
+                    || emailTextField.getText().equals(""))
+                {
+
+                    System.out.println("Empty fields.");
+
+                }
+                else {
+
+                    Database.addNewUser(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
+                    cardLayout.show(panelContainer, "3");
+
+                }
             }
             if(customer.equals("Landlord")){
                 this.dispose();
