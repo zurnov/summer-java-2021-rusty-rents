@@ -236,28 +236,23 @@ public class Register extends JFrame implements ActionListener {
             cardLayout.show(panelContainer,"1");
         }
         if(e.getSource()==nextStepButton){
-            if(customer.equals("Renter")) {
 
-                // check if any empty fields
-                if (usernameTextField.getText().equals("")
+            // check if any empty fields
+            if (usernameTextField.getText().equals("")
                     || passwordTextField.getPassword().length == 0
                     || confirmPasswordTextField.getPassword().length == 0
                     || emailTextField.getText().equals(""))
-                {
-
-                    System.out.println("Empty fields.");
-
-                }
-                else {
-
+                System.out.println("Empty fields.");
+            else {
+                if (customer.equals("Renter")) {
                     Database.addNewUser(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
                     cardLayout.show(panelContainer, "3");
-
                 }
-            }
-            if(customer.equals("Landlord")){
-                this.dispose();
-                new PopUpWindow();
+                if (customer.equals("Landlord")) {
+                    Database.addNewLandlord(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
+                    this.dispose();
+                    new PopUpWindow();
+                }
             }
         }
         if(e.getSource()==finalNextButton){

@@ -51,6 +51,30 @@ public class Database {
 
     }
 
+    public static void addNewLandlord(String username, String password, String email) {
+
+        addNewUser(username, password, email);
+
+        System.out.println(query);
+        try {
+
+            ResultSet rs = statement.executeQuery("SELECT User_Id FROM Users WHERE User_Name = '" + username + "'");
+            rs.next();
+            int userId = rs.getInt(1);
+
+            // TODO : Handle property assignment
+            values = "LANDLORDS_SEQ.NEXTVAL, '" + userId + "'";
+            query = "INSERT INTO Landlords(Landlord_Id, User_Id) VALUES (" + values + ")";
+
+            System.out.println(query);
+
+            statement.executeQuery(query);
+            statement.executeQuery("COMMIT");
+
+        } catch(Exception e) {System.out.println(e);}
+
+    }
+
     public static boolean isValidLogin(String username, String password) {
 
         query = "SELECT User_Id FROM Users WHERE USER_NAME = '" + username + "'";
