@@ -1,16 +1,26 @@
-package PLACEHOLDER;
+package AppartmentActions;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RenterAccount extends JFrame implements ActionListener {
+import MainMenu.LandLordMainMenu;
+import MainMenu.RenterMainMenu;
+import Register.*;
+
+public class BuyAppartment extends JFrame implements ActionListener{
 
     JButton backButton;
 
-    RenterAccount() {
+    public BuyAppartment() {
         ImageIcon appIcon = new ImageIcon("RustyRentsIcon.png");
         ImageIcon backIcon = new ImageIcon("BackIcon.png");
+
+        JPanel background = new JPanel();
+        background.setBounds(0,0,500,700);
+        background.setBackground(new Color(248,240,255));
+        background.setVisible(true);
 
         backButton = new JButton(backIcon);
         backButton.setBounds(5,5,50,50);
@@ -22,21 +32,29 @@ public class RenterAccount extends JFrame implements ActionListener {
 
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 490, 700);
-        layeredPane.add(backButton, Integer.valueOf(0));
+        layeredPane.add(background, Integer.valueOf(0));
+        layeredPane.add(backButton, Integer.valueOf(1));
 
-        this.setTitle("Renter Account");
+        this.setTitle("Buy Apartment PLACEHOLDER");
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(500,700);
         this.setVisible(true);
         this.add(layeredPane);
-
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == backButton) {
+            if (Register.getCustomer().equalsIgnoreCase("LandLord")) {
+                this.dispose();
+                new LandLordMainMenu();
+            }
+            else if (Register.getCustomer().equalsIgnoreCase("Renter")) {
+                this.dispose();
+                new RenterMainMenu();
+            }
+        }
     }
 }

@@ -1,7 +1,12 @@
-package PLACEHOLDER;
+package MainMenu;
+
+import AppartmentActions.BuyAppartment;
+import LogIn.LogIn;
+import Account.LandLordAccount;
+import Register.Register;
+import AppartmentActions.SellAppartment;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,7 +15,7 @@ public class LandLordMainMenu extends JFrame implements ActionListener{
     JButton settingsButton, accountButton, buyAppartmentButton, sellAppartmentButton, logOutButton;
     JLabel label2 = new JLabel();
 
-    LandLordMainMenu() {
+    public LandLordMainMenu() {
 
         ImageIcon backgroundImage = new ImageIcon("CityBackgroundImage.jpg");
         ImageIcon appIcon = new ImageIcon("RustyRentsIcon.png");
