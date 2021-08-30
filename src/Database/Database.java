@@ -1,4 +1,4 @@
-package PLACEHOLDER;
+package Database;
 import java.sql.*;
 
 public class Database {

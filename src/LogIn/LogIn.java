@@ -3,6 +3,7 @@ package LogIn;
 import MainMenu.LandLordMainMenu;
 import Register.Register;
 import MainMenu.RenterMainMenu;
+import Database.Database;
 
 import javax.swing.*;
 import java.awt.*;

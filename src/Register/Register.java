@@ -1,12 +1,14 @@
 package Register;
 
 import LogIn.LogIn;
+import Database.Database;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class Register extends JFrame implements ActionListener {
     static String customer;
@@ -245,6 +247,10 @@ public class Register extends JFrame implements ActionListener {
                     || confirmPasswordTextField.getPassword().length == 0
                     || emailTextField.getText().equals(""))
                 System.out.println("Empty fields.");
+            else if (!Arrays.equals(passwordTextField.getPassword(), confirmPasswordTextField.getPassword())) {
+                // TODO : Turn this into a label
+                System.out.println("Password and Confirm password do not match.");
+            }
             else {
                 if (customer.equals("Renter")) {
                     Database.addNewUser(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
