@@ -1,4 +1,8 @@
-package PLACEHOLDER;
+package LogIn;
+
+import MainMenu.LandLordMainMenu;
+import Register.Register;
+import MainMenu.RenterMainMenu;
 
 import javax.swing.*;
 import java.awt.*;

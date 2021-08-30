@@ -1,4 +1,6 @@
-package PLACEHOLDER;
+package Register;
+
+import LogIn.LogIn;
 
 import javax.swing.*;
 import java.awt.*;

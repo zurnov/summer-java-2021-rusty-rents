@@ -1,4 +1,10 @@
-package PLACEHOLDER;
+package MainMenu;
+
+import AppartmentActions.BuyAppartment;
+import LogIn.LogIn;
+import Register.Register;
+import AppartmentActions.RentAppartment;
+import Account.RenterAccount;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +16,7 @@ public class RenterMainMenu extends JFrame implements ActionListener{
     JButton settingsButton, accountButton, buyAppartmentButton, rentAppartmentButton, logOutButton;
     JLabel label2 = new JLabel();
 
-    RenterMainMenu() {
+    public RenterMainMenu() {
 
         ImageIcon backgroundImage = new ImageIcon("CityBackgroundImage.jpg");
         ImageIcon appIcon = new ImageIcon("RustyRentsIcon.png");
@@ -80,6 +86,7 @@ public class RenterMainMenu extends JFrame implements ActionListener{
         layeredPane.add(buyAppartmentButton, Integer.valueOf(3));
         layeredPane.add(rentAppartmentButton, Integer.valueOf(4));
         layeredPane.add(accountButton, Integer.valueOf(5));
+        layeredPane.add(logOutButton, Integer.valueOf(6));
 
         this.setIconImage(appIcon.getImage());
         this.setTitle("Rusty Rents test.Main Menu");
