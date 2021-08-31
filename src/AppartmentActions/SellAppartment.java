@@ -1,7 +1,6 @@
 package AppartmentActions;
 
-import MainMenu.LandLordMainMenu;
-import MainMenu.RenterMainMenu;
+import MainMenu.MainMenu;
 import Register.Register;
 
 import javax.swing.*;
@@ -71,8 +70,7 @@ public class SellAppartment extends JFrame implements ActionListener {
         layeredPane.setBounds(0, 0, 490, 700);
         layeredPane.add(background, Integer.valueOf(0));
         layeredPane.add(backButton, Integer.valueOf(1));
-        layeredPane.add(city, Integer.valueOf(2));
-        layeredPane.add(placeholder, Integer.valueOf(4));
+        layeredPane.add(placeholder, Integer.valueOf(2));
 
 
         this.setTitle("Sell Apartment PLACEHOLDER");
@@ -87,14 +85,9 @@ public class SellAppartment extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
-            if (Register.getCustomer().equalsIgnoreCase("LandLord")) {
                 this.dispose();
-                new LandLordMainMenu();
-            }
-            else if (Register.getCustomer().equalsIgnoreCase("Renter")) {
-                this.dispose();
-                new RenterMainMenu();
-            }
+                new MainMenu();
+
         }
     }
 
