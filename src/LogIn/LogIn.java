@@ -1,8 +1,8 @@
 package LogIn;
 
-import MainMenu.LandLordMainMenu;
+import MainMenu.MainMenu;
 import Register.Register;
-import MainMenu.RenterMainMenu;
+import Database.Database;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 public class LogIn extends JFrame implements ActionListener {
     JButton logInButton;
     JButton registerButton;
+
+    JTextField usernameTextField;
+    JPasswordField passwordTextField;
 
     public LogIn(){
         ImageIcon appIcon = new ImageIcon ("RustyRentsIcon.png");
@@ -53,7 +56,7 @@ public class LogIn extends JFrame implements ActionListener {
         usernameLabel.setPreferredSize(new Dimension(100,100));
         bodyPanel.add(usernameLabel,BorderLayout.CENTER);
 
-        JTextField usernameTextField = new JTextField();
+        usernameTextField = new JTextField();
         usernameTextField.setPreferredSize(new Dimension(100,20));
         bodyPanel.add(usernameTextField);
 
@@ -61,7 +64,7 @@ public class LogIn extends JFrame implements ActionListener {
         passwordLabel.setPreferredSize(new Dimension(100,100));
         bodyPanel.add(passwordLabel);
 
-        JPasswordField passwordTextField=new JPasswordField();
+        passwordTextField=new JPasswordField();
         passwordTextField.setPreferredSize(new Dimension(100,20));
         passwordTextField.setEchoChar('*');
         bodyPanel.add(passwordTextField);
@@ -90,15 +93,13 @@ public class LogIn extends JFrame implements ActionListener {
             new Register();
         }
         if(e.getSource()==logInButton){
-            this.dispose();
-            if (Register.getCustomer().equalsIgnoreCase("landlord")) {
-                new LandLordMainMenu();
+            // Username and Password combination exist in Database i.e. Login is successful
+            if (Database.isValidLogin(usernameTextField.getText(), new String(passwordTextField.getPassword()))) {
+                this.dispose();
+                new MainMenu();
             }
-            if (Register.getCustomer().equalsIgnoreCase("Renter")) {
-                new RenterMainMenu();
-            }
-            if (!Register.getCustomer().equalsIgnoreCase("landlord") || !Register.getCustomer().equalsIgnoreCase("Renter")) {
-                // pop up window
+            else {
+                // TODO SWING : Red label for failed login attempt ("Неправилно въведени данни")
             }
         }
     }

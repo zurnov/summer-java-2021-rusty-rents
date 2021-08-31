@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Database.Database;
+
 public class ChangeEmail extends JFrame implements ActionListener {
 
     JButton changeEmail, cancelOperation;
@@ -98,10 +100,9 @@ public class ChangeEmail extends JFrame implements ActionListener {
 
             isConfirmationSuccessful = (getNewEmail.equals(getConfirmEmail));
 
-            /*TODO if (isConfirmationSuccessful && Current email matches the entered one) {
-                   DB Statement to update user creditals
-                   }
-             */
+            //if (isConfirmationSuccessful && Current email matches the entered one){
+
+           // }
 
             if (!isConfirmationSuccessful) {
                 emailsNotMatching.setVisible(true);

@@ -3,6 +3,8 @@ import java.sql.*;
 
 public class Database {
 
+    private static String currentUser;
+
     private static Connection connection;
     private static Statement statement;
 
