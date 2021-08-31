@@ -1,7 +1,8 @@
 import AppartmentActions.BuyAppartment;
 import AppartmentActions.SellAppartment;
-import Database.Database;
+import Database.*;
 import LogIn.LogIn;
+
 
 public class Main {
 

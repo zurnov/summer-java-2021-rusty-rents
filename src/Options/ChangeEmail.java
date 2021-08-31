@@ -102,7 +102,7 @@ public class ChangeEmail extends JFrame implements ActionListener {
 
             //if (isConfirmationSuccessful && Current email matches the entered one){
 
-           // }
+            //}
 
             if (!isConfirmationSuccessful) {
                 emailsNotMatching.setVisible(true);
