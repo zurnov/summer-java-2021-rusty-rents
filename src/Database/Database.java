@@ -188,6 +188,45 @@ public class Database {
 
     }
 
+    public static boolean checkPasswordMatch(String password) {
+
+        query = "SELECT Pass_Code FROM No_Hackers_Pls WHERE User_Id = " + currentUserId;
+
+        System.out.println("Database.checkPasswordMatch : Query to select user passcode given user ID:");
+        System.out.println(query);
+
+        try {
+
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+
+            if (rs.getString(1).equalsIgnoreCase(password))
+                return true;
+
+            return false;
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return false;
+
+    }
+
+    public static void changePassword(String newPassword) {
+
+        query = "UPDATE No_Hackers_Pls SET Pass_Code = '" + newPassword + "' WHERE User_Id = " + currentUserId;
+
+        System.out.println("Database.changePassword : Query to update passcode of user with given ID:");
+        System.out.println(query);
+
+        try {
+
+            statement.executeQuery(query);
+            statement.executeQuery("COMMIT");
+
+        } catch(Exception e) {System.out.println(e);}
+
+    }
+
     public static void setCurrentUserId(int user) {
         currentUserId = user;
     }
