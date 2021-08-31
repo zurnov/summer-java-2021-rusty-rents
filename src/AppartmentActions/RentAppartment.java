@@ -1,7 +1,6 @@
 package AppartmentActions;
 
-import MainMenu.LandLordMainMenu;
-import MainMenu.RenterMainMenu;
+import MainMenu.MainMenu;
 import Register.Register;
 
 import javax.swing.*;
@@ -47,14 +46,10 @@ public class RentAppartment extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
-            if (Register.getCustomer().equalsIgnoreCase("LandLord")) {
                 this.dispose();
-                new LandLordMainMenu();
+                new MainMenu();
             }
-            else if (Register.getCustomer().equalsIgnoreCase("Renter")) {
-                this.dispose();
-                new RenterMainMenu();
-            }
-        }
+
+
     }
 }

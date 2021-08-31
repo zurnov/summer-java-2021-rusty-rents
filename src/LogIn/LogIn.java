@@ -1,11 +1,11 @@
 package LogIn;
 
-import MainMenu.LandLordMainMenu;
+import MainMenu.MainMenu;
 import Register.Register;
-import MainMenu.RenterMainMenu;
 import Database.Database;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -94,31 +94,15 @@ public class LogIn extends JFrame implements ActionListener {
             new Register();
         }
         if(e.getSource()==logInButton){
-
-            // empty fields case
-            if (usernameTextField.getText().equals("") || passwordTextField.getPassword().length == 0) {
-                // Placeholder behaviour - must show red label
-                System.out.println("Empty fields. Cannot login.");
-                return;
+            // Username and Password combination exist in Database i.e. Login is successful
+            if (Database.isValidLogin(usernameTextField.getText(), new String(passwordTextField.getPassword()))) {
+                Database.setCurrentUser(1);
+                this.dispose();
+                new MainMenu();
             }
-
-            String inputUsername = usernameTextField.getText();
-            String inputPassword = new String(passwordTextField.getPassword());
-
-            if (!Database.isValidLogin(inputUsername, inputPassword))
-                return;
-
-            this.dispose();
-            //if (Register.getCustomer().equalsIgnoreCase("landlord")) {
-                //new LandLordMainMenu();
-            //}
-            //if (Register.getCustomer().equalsIgnoreCase("Renter")) {
-                new RenterMainMenu();
-            //}
-            //if (!Register.getCustomer().equalsIgnoreCase("landlord") || !Register.getCustomer().equalsIgnoreCase("Renter")) {
-                // pop up window
-            //}
-
+            else {
+                // TODO SWING : Red label for failed login attempt ("Неправилно въведени данни")
+            }
         }
     }
 }

@@ -3,6 +3,8 @@ import java.sql.*;
 
 public class Database {
 
+    private static int currentUser;
+
     private static Connection connection;
     private static Statement statement;
 
@@ -38,13 +40,20 @@ public class Database {
 
     public static void addNewUser(String username, String password, String email) {
 
-        values = "USERS_SEQ.NEXTVAL, '" + username + "', '" + email + "'";
-        query = "INSERT INTO Users VALUES (" + values + ")";
-
-        System.out.println(query);
         try {
+
+            int newUserId;
+            statement.executeQuery("SELECT USERS_SEQ.NEXTVAL FROM Dual");
+
+            values = ", '" + username + "', '" + email + "'";
+            query = "INSERT INTO Users VALUES (" + values + ")";
+
+            System.out.println(query);
+
             statement.executeQuery(query);
             statement.executeQuery("COMMIT");
+
+
         } catch(Exception e) {System.out.println(e);}
 
         storeLogin(username, password);
@@ -105,6 +114,49 @@ public class Database {
 
         return false;
 
+    }
+
+    public static boolean checkEmailMatch(String username, String email) {
+
+        query = "SELECT User_Name, Email_Address FROM No_Hackers_Pls WHERE User_Name = " + username;
+
+        System.out.println(query);
+
+        try {
+
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            if (rs.getString(2).equals(email))
+                return true;
+
+            return false;
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return false;
+
+    }
+
+    public static void changeEmail(int userId, String newEmail) {
+
+        query = "UPDATE Users SET Email_Address = '" + newEmail + "' WHERE User_Id = " + userId;
+
+        System.out.println(query);
+
+        try {
+
+            statement.executeQuery(query);
+
+        } catch(Exception e) {System.out.println(e);}
+
+    }
+
+    public static void setCurrentUser(int user) {
+        currentUser = user;
+    }
+
+    public static int getCurrentUser() {
+        return currentUser;
     }
 
 }
