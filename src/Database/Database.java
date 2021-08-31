@@ -116,6 +116,24 @@ public class Database {
 
     }
 
+    public static int getUserId(String username) {
+
+        query = "SELECT User_Id FROM Users WHERE User_Name = " + username;
+
+        System.out.println(query);
+
+        try {
+
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            return rs.getInt(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return -1;
+
+    }
+
     public static boolean checkEmailMatch(String username, String email) {
 
         query = "SELECT User_Name, Email_Address FROM No_Hackers_Pls WHERE User_Name = " + username;

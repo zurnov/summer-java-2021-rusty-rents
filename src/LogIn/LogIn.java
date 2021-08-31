@@ -96,7 +96,8 @@ public class LogIn extends JFrame implements ActionListener {
         if(e.getSource()==logInButton){
             // Username and Password combination exist in Database i.e. Login is successful
             if (Database.isValidLogin(usernameTextField.getText(), new String(passwordTextField.getPassword()))) {
-                Database.setCurrentUser(1);
+
+                Database.setCurrentUser(Database.getUserId(usernameTextField.getText()));
                 this.dispose();
                 new MainMenu();
             }
