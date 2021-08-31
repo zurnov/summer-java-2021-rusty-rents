@@ -100,14 +100,17 @@ public class ChangeEmail extends JFrame implements ActionListener {
 
             isConfirmationSuccessful = (getNewEmail.equals(getConfirmEmail));
 
-            //if (isConfirmationSuccessful && Current email matches the entered one){
-
-            //}
+            if (isConfirmationSuccessful && Database.checkEmailMatch(currentEmailData.getText())){
+                Database.changeEmail(getNewEmail);
+            }
+            else {
+                // TODO SWING : Label "Грешно въведен настоящ имейл" under text field for current email
+                System.out.println("Current email does not match with input data");
+            }
 
             if (!isConfirmationSuccessful) {
                 emailsNotMatching.setVisible(true);
             }
-
             else {
                 emailsNotMatching.setVisible(false);
             }

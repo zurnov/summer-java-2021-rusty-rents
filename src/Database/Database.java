@@ -132,7 +132,7 @@ public class Database {
 
     public static int getUserId(String username) {
 
-        query = "SELECT User_Id FROM Users WHERE User_Name = " + username;
+        query = "SELECT User_Id FROM Users WHERE User_Name = '" + username + "'";
 
         System.out.println("Database.getUserId : Query to select user ID from given username:");
         System.out.println(query);
@@ -151,7 +151,7 @@ public class Database {
 
     public static boolean checkEmailMatch(String email) {
 
-        query = "SELECT Email_Address FROM No_Hackers_Pls WHERE User_Id = " + currentUserId;
+        query = "SELECT Email_Address FROM Users WHERE User_Id = " + currentUserId;
 
         System.out.println("Database.checkEmailMatch : Query to select user email given user ID:");
         System.out.println(query);
@@ -160,7 +160,8 @@ public class Database {
 
             ResultSet rs = statement.executeQuery(query);
             rs.next();
-            if (rs.getString(2).equals(email))
+
+            if (rs.getString(1).equalsIgnoreCase(email))
                 return true;
 
             return false;
