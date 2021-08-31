@@ -5,6 +5,7 @@ import Register.Register;
 import Database.Database;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -95,6 +96,7 @@ public class LogIn extends JFrame implements ActionListener {
         if(e.getSource()==logInButton){
             // Username and Password combination exist in Database i.e. Login is successful
             if (Database.isValidLogin(usernameTextField.getText(), new String(passwordTextField.getPassword()))) {
+                Database.setCurrentUser(usernameTextField.getText());
                 this.dispose();
                 new MainMenu();
             }

@@ -109,4 +109,12 @@ public class Database {
 
     }
 
+    public static void setCurrentUser(String user) {
+        currentUser = user;
+    }
+
+    public static String getCurrentUser() {
+        return currentUser;
+    }
+
 }
