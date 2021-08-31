@@ -1,17 +1,17 @@
 package Account;
 
-import MainMenu.RenterMainMenu;
+import MainMenu.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RenterAccount extends JFrame implements ActionListener {
+public class MyProfile extends JFrame implements ActionListener {
 
-    JButton backButton, changeEmail, changePassword;
+    JButton backButton;
 
-    public RenterAccount() {
+    public MyProfile() {
         ImageIcon appIcon = new ImageIcon("RustyRentsIcon.png");
         ImageIcon backIcon = new ImageIcon("BackIcon.png");
 
@@ -28,17 +28,6 @@ public class RenterAccount extends JFrame implements ActionListener {
         backButton.setContentAreaFilled(false);
         backButton.setBorderPainted(false);
 
-        changeEmail = new JButton("Смени email");
-        changeEmail.setBounds(70, 560, 150, 50);
-        changeEmail.setBackground(new Color(139,0,139));
-        changeEmail.setForeground(Color.WHITE);
-        changeEmail.setFocusable(false);
-
-        changePassword = new JButton("Смени парола");
-        changePassword.setBounds(255, 560, 150, 50);
-        changePassword.setBackground(new Color(139,0,139));
-        changePassword.setForeground(Color.WHITE);
-        changePassword.setFocusable(false);
 
         JLabel moneySpent = new JLabel("Похарчени пари: ");
         moneySpent.setBounds(135,170, 150, 15);
@@ -51,7 +40,6 @@ public class RenterAccount extends JFrame implements ActionListener {
 
         JLabel email = new JLabel("Email: ");
         email.setBounds(135, 320, 130, 15);
-
 
 
         JLabel moneySpentData = new JLabel("PLACEHOLDER");
@@ -79,10 +67,8 @@ public class RenterAccount extends JFrame implements ActionListener {
         layeredPane.add(positiveRatingData, Integer.valueOf(7));
         layeredPane.add(usernameData, Integer.valueOf(8));
         layeredPane.add(emailData, Integer.valueOf(9));
-        layeredPane.add(changeEmail, Integer.valueOf(10));
-        layeredPane.add(changePassword, Integer.valueOf(11));
 
-        this.setTitle("Renter Account");
+        this.setTitle("Renter MyProfile");
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -97,7 +83,7 @@ public class RenterAccount extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==backButton) {
             this.dispose();
-            new RenterMainMenu();
+            new MainMenu();
         }
     }
 }

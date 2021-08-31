@@ -3,7 +3,6 @@ package LogIn;
 import MainMenu.LandLordMainMenu;
 import Register.Register;
 import MainMenu.RenterMainMenu;
-import Database.Database;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +12,6 @@ import java.awt.event.ActionListener;
 public class LogIn extends JFrame implements ActionListener {
     JButton logInButton;
     JButton registerButton;
-
-    JTextField usernameTextField;
-    JPasswordField passwordTextField;
 
     public LogIn(){
         ImageIcon appIcon = new ImageIcon ("RustyRentsIcon.png");
@@ -57,7 +53,7 @@ public class LogIn extends JFrame implements ActionListener {
         usernameLabel.setPreferredSize(new Dimension(100,100));
         bodyPanel.add(usernameLabel,BorderLayout.CENTER);
 
-        usernameTextField = new JTextField();
+        JTextField usernameTextField = new JTextField();
         usernameTextField.setPreferredSize(new Dimension(100,20));
         bodyPanel.add(usernameTextField);
 
@@ -65,7 +61,7 @@ public class LogIn extends JFrame implements ActionListener {
         passwordLabel.setPreferredSize(new Dimension(100,100));
         bodyPanel.add(passwordLabel);
 
-        passwordTextField=new JPasswordField();
+        JPasswordField passwordTextField=new JPasswordField();
         passwordTextField.setPreferredSize(new Dimension(100,20));
         passwordTextField.setEchoChar('*');
         bodyPanel.add(passwordTextField);
@@ -94,31 +90,16 @@ public class LogIn extends JFrame implements ActionListener {
             new Register();
         }
         if(e.getSource()==logInButton){
-
-            // empty fields case
-            if (usernameTextField.getText().equals("") || passwordTextField.getPassword().length == 0) {
-                // Placeholder behaviour - must show red label
-                System.out.println("Empty fields. Cannot login.");
-                return;
-            }
-
-            String inputUsername = usernameTextField.getText();
-            String inputPassword = new String(passwordTextField.getPassword());
-
-            if (!Database.isValidLogin(inputUsername, inputPassword))
-                return;
-
             this.dispose();
-            //if (Register.getCustomer().equalsIgnoreCase("landlord")) {
-                //new LandLordMainMenu();
-            //}
-            //if (Register.getCustomer().equalsIgnoreCase("Renter")) {
+            if (Register.getCustomer().equalsIgnoreCase("landlord")) {
+                new LandLordMainMenu();
+            }
+            if (Register.getCustomer().equalsIgnoreCase("Renter")) {
                 new RenterMainMenu();
-            //}
-            //if (!Register.getCustomer().equalsIgnoreCase("landlord") || !Register.getCustomer().equalsIgnoreCase("Renter")) {
+            }
+            if (!Register.getCustomer().equalsIgnoreCase("landlord") || !Register.getCustomer().equalsIgnoreCase("Renter")) {
                 // pop up window
-            //}
-
+            }
         }
     }
 }
