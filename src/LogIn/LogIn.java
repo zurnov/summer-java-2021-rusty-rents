@@ -5,7 +5,6 @@ import Register.Register;
 import Database.Database;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -97,9 +96,10 @@ public class LogIn extends JFrame implements ActionListener {
             // Username and Password combination exist in Database i.e. Login is successful
             if (Database.isValidLogin(usernameTextField.getText(), new String(passwordTextField.getPassword()))) {
 
-                Database.setCurrentUser(Database.getUserId(usernameTextField.getText()));
+                Database.setCurrentUserId(Database.getUserId(usernameTextField.getText()));
                 this.dispose();
                 new MainMenu();
+
             }
             else {
                 // TODO SWING : Red label for failed login attempt ("Неправилно въведени данни")
