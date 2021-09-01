@@ -1,5 +1,3 @@
-import AppartmentActions.BuyAppartment;
-import AppartmentActions.SellAppartment;
 import Database.*;
 import LogIn.LogIn;
 import Options.ChangeEmail;
