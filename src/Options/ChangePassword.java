@@ -1,6 +1,9 @@
 package Options;
 
+import Database.Database;
+
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -93,22 +96,23 @@ public class ChangePassword extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== changePassword){
-            //TODO
 
             getNewPassword = new String(newPasswordTextField.getPassword());
             getConfirmPassword = new String(confirmNewPasswordTextField.getPassword());
 
             isConfirmationSuccessful = (getNewPassword.equals(getConfirmPassword));
 
-            /*TODO if (isConfirmationSuccessful && Current password matches the entered one) {
-                   DB Statement to update user creditals
-                   }
-             */
+            if (isConfirmationSuccessful && Database.checkPasswordMatch(new String(currentPasswordTextField.getPassword()))) {
+                Database.changePassword(getNewPassword);
+            }
+            else {
+                // TODO SWING : Label "Грешно въведена настояща парола" under text field for current password
+                System.out.println("Current password does not match with input data");
+            }
 
             if (!isConfirmationSuccessful) {
                 passwordsNotMatching.setVisible(true);
             }
-
             else {
                 passwordsNotMatching.setVisible(false);
             }

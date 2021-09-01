@@ -7,11 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Register extends JFrame implements ActionListener {
-    static String customer;
 
     JPanel panelContainer=new JPanel();
     JPanel firstPanel=new JPanel();
@@ -214,22 +212,13 @@ public class Register extends JFrame implements ActionListener {
         panel3.setPreferredSize(new Dimension(200,50));
     }
 
-    public static String getCustomer() {
-        return customer;
-    }
-    public static void setCustomer(String newVal) {
-        customer = newVal;
-    }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==customerButton){
-            customer="Renter";
             cardLayout.show(panelContainer,"2");
         }
         if(e.getSource()==landlordButton){
-            customer="Landlord";
             cardLayout.show(panelContainer,"2");
         }
         if(e.getSource()==backToLogInScreenButton){
@@ -241,26 +230,24 @@ public class Register extends JFrame implements ActionListener {
         }
         if(e.getSource()==nextStepButton){
 
-            // check if any empty fields
+            // Case when there is an empty field
             if (usernameTextField.getText().equals("")
                     || passwordTextField.getPassword().length == 0
                     || confirmPasswordTextField.getPassword().length == 0
-                    || emailTextField.getText().equals(""))
+                    || emailTextField.getText().equals("")) {
+                // TODO SWING : Label "Има непопълнени полета"
                 System.out.println("Empty fields.");
+            }
+            // Case when Password and Confirm Password do not match
             else if (!Arrays.equals(passwordTextField.getPassword(), confirmPasswordTextField.getPassword())) {
-                // TODO : Turn this into a label
+                // TODO SWING : Label "Паролата не съвпада с горната"
                 System.out.println("Password and Confirm password do not match.");
             }
             else {
-                if (customer.equals("Renter")) {
-                    Database.addNewUser(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
-                    cardLayout.show(panelContainer, "3");
-                }
-                if (customer.equals("Landlord")) {
-                    Database.addNewLandlord(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
-                    this.dispose();
-                    new PopUpWindow();
-                }
+                Database.addNewUser(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
+                //Database.addNewLandlord(usernameTextField.getText(), new String(passwordTextField.getPassword()), emailTextField.getText());
+                this.dispose();
+                new PopUpWindow();
             }
         }
         if(e.getSource()==finalNextButton){

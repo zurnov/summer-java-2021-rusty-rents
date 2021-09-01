@@ -119,7 +119,6 @@ public class MainMenu extends JFrame implements ActionListener{
             new MyProfile();
         }
         else if (e.getSource()==logOutButton) {
-            Register.setCustomer("");
             this.dispose();
             new LogIn();
         }
