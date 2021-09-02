@@ -1,7 +1,6 @@
 package Listings;
 
 import MainMenu.MainMenu;
-import Database.Database;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,9 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.CardLayout;
 import java.awt.Component;
 
 public class ViewListings extends JFrame implements ActionListener {
@@ -27,12 +23,25 @@ public class ViewListings extends JFrame implements ActionListener {
     DefaultTableModel model;
     JScrollPane pane;
     JButton backButton;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    private JTextField textField_3;
-    private JTextField textField_4;
-    private JLabel lblNewLabel_4;
+
+    // Declare top row text fields
+    private JTextField tfCityFilter;
+    private JTextField tfQuarterFilter;
+    private JTextField tfPropertyTypeFilter;
+    private JTextField tfMinAreaFilter;
+    private JTextField tfMaxPriceFilter;
+
+    // Declare top row labels
+    private JLabel lblCityFilter;
+    private JLabel lblQuarterFilter;
+    private JLabel lblPropertyTypeFilter;
+    private JLabel lblMinAreaFilter;
+    private JLabel lblMaxPriceFilter;
+
+    private final int LABELS_FONT_SIZE = 15;
+    private final int LABELS_POSITION_Y = 40;
+    private final int LABELS_WIDTH = 100;
+    private final int LABELS_HEIGHT = 50;
 
     public ViewListings() {
         setAutoRequestFocus(false);
@@ -64,56 +73,79 @@ public class ViewListings extends JFrame implements ActionListener {
         pane.setForeground(Color.RED);
         pane.setBackground(Color.WHITE);
 
-
-
         row = new Object[4];
 
+        //
+        // Top row of window
+        //
 
+        // City label
+        lblCityFilter = new JLabel("Град");
+        lblCityFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
+        lblCityFilter.setForeground(Color.BLACK);
+        lblCityFilter.setBounds(54, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        getContentPane().add(lblCityFilter);
 
-        JLabel lblNewLabel = new JLabel("Град");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-        lblNewLabel.setForeground(Color.WHITE);
-        lblNewLabel.setBounds(54, 24, 57, 45);
-        getContentPane().add(lblNewLabel);
+        // City text field
+        tfCityFilter = new JTextField();
+        tfCityFilter.setBounds(44, 79, 78, 19);
+        getContentPane().add(tfCityFilter);
+        tfCityFilter.setColumns(10);
 
-        textField = new JTextField();
-        textField.setBounds(44, 79, 78, 19);
-        getContentPane().add(textField);
-        textField.setColumns(10);
+        // City quarter label
+        lblQuarterFilter = new JLabel("Квартал");
+        lblQuarterFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
+        lblQuarterFilter.setForeground(Color.BLACK);
+        lblQuarterFilter.setBounds(157, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        getContentPane().add(lblQuarterFilter);
 
-        textField_1 = new JTextField();
-        textField_1.setBounds(150, 79, 107, 19);
-        getContentPane().add(textField_1);
-        textField_1.setColumns(10);
+        // City quarter text field
+        tfQuarterFilter = new JTextField();
+        tfQuarterFilter.setBounds(150, 79, 107, 19);
+        getContentPane().add(tfQuarterFilter);
+        tfQuarterFilter.setColumns(10);
 
-        JLabel lblNewLabel_1 = new JLabel("Квартал");
-        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
-        lblNewLabel_1.setForeground(Color.WHITE);
-        lblNewLabel_1.setBounds(157, 29, 115, 35);
-        getContentPane().add(lblNewLabel_1);
+        // Property type label
+        lblPropertyTypeFilter = new JLabel("Вид имот");
+        lblPropertyTypeFilter.setForeground(Color.BLACK);
+        lblPropertyTypeFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
+        lblPropertyTypeFilter.setBounds(290, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        getContentPane().add(lblPropertyTypeFilter);
 
-        JLabel lblNewLabel_2 = new JLabel("Вид");
-        lblNewLabel_2.setForeground(Color.WHITE);
-        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 26));
-        lblNewLabel_2.setBounds(309, 29, 78, 35);
-        getContentPane().add(lblNewLabel_2);
+        // Property type text field
+        tfPropertyTypeFilter = new JTextField();
+        tfPropertyTypeFilter.setBounds(285, 79, 91, 19);
+        getContentPane().add(tfPropertyTypeFilter);
+        tfPropertyTypeFilter.setColumns(10);
 
-        textField_2 = new JTextField();
-        textField_2.setBounds(285, 79, 91, 19);
-        getContentPane().add(textField_2);
-        textField_2.setColumns(10);
+        // Minimum area label
+        lblMinAreaFilter = new JLabel("Min. m^2");
+        lblMinAreaFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
+        lblMinAreaFilter.setForeground(Color.BLACK);
+        lblMinAreaFilter.setBounds(410, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        getContentPane().add(lblMinAreaFilter);
 
-        textField_3 = new JTextField();
-        textField_3.setBounds(403, 79, 78, 19);
-        getContentPane().add(textField_3);
-        textField_3.setColumns(10);
+        // Minimum area text field
+        tfMinAreaFilter = new JTextField();
+        tfMinAreaFilter.setBounds(403, 79, 78, 19);
+        getContentPane().add(tfMinAreaFilter);
+        tfMinAreaFilter.setColumns(10);
 
-        JLabel lblNewLabel_3 = new JLabel("m^2");
-        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 26));
-        lblNewLabel_3.setForeground(Color.WHITE);
-        lblNewLabel_3.setBounds(413, 37, 68, 19);
-        getContentPane().add(lblNewLabel_3);
+        // Max price label
+        lblMaxPriceFilter = new JLabel("Max. цена");
+        lblMaxPriceFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
+        lblMaxPriceFilter.setForeground(Color.BLACK);
+        lblMaxPriceFilter.setBounds(510, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        getContentPane().add(lblMaxPriceFilter);
+        getContentPane().setLayout(null);
 
+        // Max price text field
+        tfMaxPriceFilter = new JTextField();
+        tfMaxPriceFilter.setBounds(502, 79, 91, 19);
+        getContentPane().add(tfMaxPriceFilter);
+        tfMaxPriceFilter.setColumns(10);
+
+        // Search button
         JButton btnNewButton = new JButton("Търси");
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         btnNewButton.setBounds(616, 72, 107, 25);
@@ -125,9 +157,10 @@ public class ViewListings extends JFrame implements ActionListener {
                 //TODO Filter listings
             }
         });
+
         getContentPane().add(btnNewButton);
 
-
+        // Back button
         backButton = new JButton(backIcon);
         backButton.setBounds(5,5,50,50);
         backButton.setFocusable(false);
@@ -137,27 +170,16 @@ public class ViewListings extends JFrame implements ActionListener {
         backButton.setBorderPainted(false);
         getContentPane().add(backButton);
 
-        JButton btnNewButton_1 = new JButton("Преглед на имот");
-        btnNewButton_1.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnNewButton_1.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        btnNewButton_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        btnNewButton_1.setBounds(527, 395, 196, 51);
-        btnNewButton_1.setBackground(new Color(139,0,139));
-        btnNewButton_1.setForeground(Color.WHITE);
-        getContentPane().add(btnNewButton_1);
-
-        textField_4 = new JTextField();
-        textField_4.setBounds(502, 79, 91, 19);
-        getContentPane().add(textField_4);
-        textField_4.setColumns(10);
-
-        lblNewLabel_4 = new JLabel("Max. цена");
-        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 19));
-        lblNewLabel_4.setForeground(Color.WHITE);
-        lblNewLabel_4.setBounds(502, 37, 91, 22);
-        getContentPane().add(lblNewLabel_4);
-        getContentPane().setLayout(null);
+        // View property button
+        JButton btnViewProperty = new JButton("Преглед на имот");
+        btnViewProperty.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnViewProperty.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        btnViewProperty.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        btnViewProperty.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        btnViewProperty.setBounds(527, 395, 196, 51);
+        btnViewProperty.setBackground(new Color(139,0,139));
+        btnViewProperty.setForeground(Color.WHITE);
+        getContentPane().add(btnViewProperty);
 
         this.setTitle("Преглед на обяви˜");
         this.setIconImage(appIcon.getImage());
