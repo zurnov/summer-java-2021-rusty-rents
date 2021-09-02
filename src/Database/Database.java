@@ -223,6 +223,7 @@ public class Database {
             statement.executeQuery(query);
             statement.executeQuery("COMMIT");
 
+
         } catch(Exception e) {System.out.println(e);}
 
     }
@@ -233,6 +234,43 @@ public class Database {
 
     public static int getCurrentUserId() {
         return currentUserId;
+    }
+
+    public static ResultSet getProperties() {
+
+        String qSelect = "SELECT L.Listing_Title, C.City_Name, P.Property_Type, L.Listing_Price_Bgn";
+        String qFrom = "FROM Listings L JOIN Properties P ON P.Property_Id = L.Property_Id JOIN Cities C ON C.City_Id = P.City_Id";
+        query = qSelect + " " + qFrom;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+        } catch (Exception e) {System.out.println(e);}
+
+        return rs;
+
+    }
+
+    public static ResultSet getFilteredProperties(String city, String quarter, String Type, int area, int price) {
+
+        String qSelect = "SELECT L.Listing_Title, C.City_Name, P.Property_Type, L.Listing_Price_Bgn";
+        String qFrom = "FROM Listings L JOIN Properties P ON P.Property_Id = L.Property_Id JOIN Cities C ON C.City_Id = P.City_Id";
+        //String qWhere = "WHERE C.City_Name = '" + city + "' AND "
+        query = qSelect + " " + qFrom;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+        } catch (Exception e) {System.out.println(e);}
+
+        return rs;
+
     }
 
 }

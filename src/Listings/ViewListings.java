@@ -1,6 +1,7 @@
 package Listings;
 
 import MainMenu.MainMenu;
+import Database.Database;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Component;
+import java.sql.ResultSet;
 
 public class ViewListings extends JFrame implements ActionListener {
 
@@ -145,20 +147,37 @@ public class ViewListings extends JFrame implements ActionListener {
         getContentPane().add(tfMaxPriceFilter);
         tfMaxPriceFilter.setColumns(10);
 
+        //
+        // Add properties from database
+        //
+
+        ResultSet rs = Database.getProperties();
+        try {
+            while (rs.next()) {
+                row[0] = rs.getString(1);
+                System.out.println(row[0]);
+                row[1] = rs.getString(2);
+                row[2] = rs.getString(3);
+                row[3] = rs.getInt(4);
+
+                model.addRow(row);
+            }
+        } catch (Exception e) {System.out.println();}
+
         // Search button
-        JButton btnNewButton = new JButton("Търси");
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        btnNewButton.setBounds(616, 72, 107, 25);
-        btnNewButton.setBackground(new Color(139,0,139));
-        btnNewButton.setForeground(Color.WHITE);
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton btnFilterResults = new JButton("Търси");
+        btnFilterResults.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        btnFilterResults.setBounds(616, 72, 107, 25);
+        btnFilterResults.setBackground(new Color(139,0,139));
+        btnFilterResults.setForeground(Color.WHITE);
+        btnFilterResults.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO Filter listings
             }
         });
 
-        getContentPane().add(btnNewButton);
+        getContentPane().add(btnFilterResults);
 
         // Back button
         backButton = new JButton(backIcon);
@@ -193,6 +212,10 @@ public class ViewListings extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
 
         // TODO this.add(layeredPane);
+    }
+
+    private void addRow() {
+
     }
 
     @Override
