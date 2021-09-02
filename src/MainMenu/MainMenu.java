@@ -1,11 +1,9 @@
 package MainMenu;
 
 import Account.MyProfile;
-import AppartmentActions.BuyAppartment;
 import LogIn.LogIn;
 import Options.Options;
 import Register.Register;
-import AppartmentActions.SellAppartment;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,7 +104,7 @@ public class MainMenu extends JFrame implements ActionListener{
             this.dispose();
             new Options();
         }
-        else if (e.getSource()== myListingsButton) {
+        /*else if (e.getSource()== myListingsButton) {
             this.dispose();
             new BuyAppartment();
         }
@@ -114,6 +112,7 @@ public class MainMenu extends JFrame implements ActionListener{
             this.dispose();
             new SellAppartment();
         }
+        */
         else if (e.getSource()== myProfileButton) {
             this.dispose();
             new MyProfile();

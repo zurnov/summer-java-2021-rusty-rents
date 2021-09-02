@@ -1,6 +1,7 @@
 package Listings;
 
 import MainMenu.MainMenu;
+import Database.Database;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
