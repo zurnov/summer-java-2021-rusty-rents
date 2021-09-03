@@ -1,9 +1,10 @@
 package MainMenu;
 
-import Account.MyProfile;
-import LogIn.LogIn;
-import Options.Options;
-import Register.Register;
+import Account.*;
+import LogIn.*;
+import Options.*;
+import Register.*;
+import Listings.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -104,15 +105,15 @@ public class MainMenu extends JFrame implements ActionListener{
             this.dispose();
             new Options();
         }
-        /*else if (e.getSource()== myListingsButton) {
+        else if (e.getSource()== myListingsButton) {
             this.dispose();
-            new BuyAppartment();
+            new MyListings();
         }
         else if (e.getSource()== viewListingsButon) {
             this.dispose();
-            new SellAppartment();
+            new ViewListings();
         }
-        */
+
         else if (e.getSource()== myProfileButton) {
             this.dispose();
             new MyProfile();

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RustyRentsApp.iml" filepath="$PROJECT_DIR$/RustyRentsApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/summer-java-2021-rusty-rents.iml" filepath="$PROJECT_DIR$/.idea/summer-java-2021-rusty-rents.iml" />
     </modules>
   </component>
 </project>

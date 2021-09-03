@@ -1,7 +1,7 @@
 package Listings;
 
-import MainMenu.MainMenu;
-import Database.Database;
+import MainMenu.*;
+import Database.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +24,7 @@ public class ViewListings extends JFrame implements ActionListener {
     Object[] columns, row;
     DefaultTableModel model;
     JScrollPane pane;
-    JButton backButton;
+    JButton backButton, btnViewProperty;
 
     // Declare top row text fields
     private JTextField tfCityFilter;
@@ -190,7 +190,7 @@ public class ViewListings extends JFrame implements ActionListener {
         getContentPane().add(backButton);
 
         // View property button
-        JButton btnViewProperty = new JButton("Преглед на имот");
+        btnViewProperty = new JButton("Преглед на имот");
         btnViewProperty.setHorizontalTextPosition(SwingConstants.CENTER);
         btnViewProperty.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         btnViewProperty.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -223,6 +223,10 @@ public class ViewListings extends JFrame implements ActionListener {
         if (e.getSource()== backButton) {
             this.dispose();
             new MainMenu();
+        }
+
+        else if (e.getSource()== btnViewProperty) {
+
         }
     }
 }
