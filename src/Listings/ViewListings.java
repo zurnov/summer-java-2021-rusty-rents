@@ -26,19 +26,20 @@ public class ViewListings extends JFrame implements ActionListener {
     JScrollPane pane;
     JButton backButton, btnViewProperty;
 
-    // Declare top row text fields
-    private JTextField tfCityFilter;
-    private JTextField tfQuarterFilter;
-    private JTextField tfPropertyTypeFilter;
-    private JTextField tfMinAreaFilter;
-    private JTextField tfMaxPriceFilter;
-
-    // Declare top row labels
-    private JLabel lblCityFilter;
+    // labels
+    private JLabel lblListingNameFilter;
     private JLabel lblQuarterFilter;
+    private JLabel lblCityNameFilter;
     private JLabel lblPropertyTypeFilter;
-    private JLabel lblMinAreaFilter;
     private JLabel lblMaxPriceFilter;
+
+    // combo boxes
+    private JComboBox<String> cbCityNameFilter;
+    private JComboBox<String> cbPropertyTypeFilter;
+
+    // text fields
+    private JTextField tfListingNameFilter;
+    private JTextField tfMaxPriceFilter;
 
     private final int LABELS_FONT_SIZE = 15;
     private final int LABELS_POSITION_Y = 40;
@@ -69,7 +70,6 @@ public class ViewListings extends JFrame implements ActionListener {
         table.setRowHeight(30);
         table.setAutoCreateRowSorter(true);
 
-
         pane = new JScrollPane(table);
         pane.setBounds(18, 114, 705, 262);
         pane.setForeground(Color.RED);
@@ -81,69 +81,54 @@ public class ViewListings extends JFrame implements ActionListener {
         // Top row of window
         //
 
-        // City label
-        lblCityFilter = new JLabel("Град");
-        lblCityFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
-        lblCityFilter.setForeground(Color.BLACK);
-        lblCityFilter.setBounds(54, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
-        getContentPane().add(lblCityFilter);
+        // Listing name label
+        lblListingNameFilter = new JLabel("Име на обявата");
+        lblListingNameFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
+        lblListingNameFilter.setForeground(Color.BLACK);
+        lblListingNameFilter.setBounds(54, LABELS_POSITION_Y, 250, LABELS_HEIGHT);
+        getContentPane().add(lblListingNameFilter);
 
-        // City text field
-        tfCityFilter = new JTextField();
-        tfCityFilter.setBounds(44, 79, 78, 19);
-        getContentPane().add(tfCityFilter);
-        tfCityFilter.setColumns(10);
+        // Listing name text field
+        tfListingNameFilter = new JTextField();
+        tfListingNameFilter.setBounds(44, 79, 200, 19);
+        getContentPane().add(tfListingNameFilter);
+        tfListingNameFilter.setColumns(10);
 
-        // City quarter label
-        lblQuarterFilter = new JLabel("Квартал");
-        lblQuarterFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
-        lblQuarterFilter.setForeground(Color.BLACK);
-        lblQuarterFilter.setBounds(157, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
-        getContentPane().add(lblQuarterFilter);
+        // City name filter label
+        lblCityNameFilter = new JLabel("Град");
+        lblCityNameFilter.setForeground(Color.BLACK);
+        lblCityNameFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
+        lblCityNameFilter.setBounds(260, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        getContentPane().add(lblCityNameFilter);
 
-        // City quarter text field
-        tfQuarterFilter = new JTextField();
-        tfQuarterFilter.setBounds(150, 79, 107, 19);
-        getContentPane().add(tfQuarterFilter);
-        tfQuarterFilter.setColumns(10);
+        // City name filter combo box
+        cbCityNameFilter = new JComboBox<String>();
+        cbCityNameFilter.setBounds(255, 79, 130, 19);
+        getContentPane().add(cbCityNameFilter);
 
-        // Property type label
+        // Property type filter label
         lblPropertyTypeFilter = new JLabel("Вид имот");
-        lblPropertyTypeFilter.setForeground(Color.BLACK);
         lblPropertyTypeFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
-        lblPropertyTypeFilter.setBounds(290, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        lblPropertyTypeFilter.setForeground(Color.BLACK);
+        lblPropertyTypeFilter.setBounds(410, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
         getContentPane().add(lblPropertyTypeFilter);
 
-        // Property type text field
-        tfPropertyTypeFilter = new JTextField();
-        tfPropertyTypeFilter.setBounds(285, 79, 91, 19);
-        getContentPane().add(tfPropertyTypeFilter);
-        tfPropertyTypeFilter.setColumns(10);
+        // Property type filter combo box
+        cbPropertyTypeFilter = new JComboBox<String>();
+        cbPropertyTypeFilter.setBounds(403, 79, 115, 19);
+        getContentPane().add(cbPropertyTypeFilter);
 
-        // Minimum area label
-        lblMinAreaFilter = new JLabel("Min. m^2");
-        lblMinAreaFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
-        lblMinAreaFilter.setForeground(Color.BLACK);
-        lblMinAreaFilter.setBounds(410, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
-        getContentPane().add(lblMinAreaFilter);
-
-        // Minimum area text field
-        tfMinAreaFilter = new JTextField();
-        tfMinAreaFilter.setBounds(403, 79, 78, 19);
-        getContentPane().add(tfMinAreaFilter);
-        tfMinAreaFilter.setColumns(10);
-
-        // Max price label
+        // Max price filter label
         lblMaxPriceFilter = new JLabel("Max. цена");
         lblMaxPriceFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
         lblMaxPriceFilter.setForeground(Color.BLACK);
-        lblMaxPriceFilter.setBounds(510, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
+        lblMaxPriceFilter.setBounds(530, LABELS_POSITION_Y, LABELS_WIDTH, LABELS_HEIGHT);
         getContentPane().add(lblMaxPriceFilter);
         getContentPane().setLayout(null);
 
-        // Max price text field
+        // Max price filter text field
         tfMaxPriceFilter = new JTextField();
-        tfMaxPriceFilter.setBounds(502, 79, 91, 19);
+        tfMaxPriceFilter.setBounds(530, 79, 70, 19);
         getContentPane().add(tfMaxPriceFilter);
         tfMaxPriceFilter.setColumns(10);
 
@@ -155,7 +140,6 @@ public class ViewListings extends JFrame implements ActionListener {
         try {
             while (rs.next()) {
                 row[0] = rs.getString(1);
-                System.out.println(row[0]);
                 row[1] = rs.getString(2);
                 row[2] = rs.getString(3);
                 row[3] = rs.getInt(4);
@@ -199,6 +183,14 @@ public class ViewListings extends JFrame implements ActionListener {
         btnViewProperty.setBackground(new Color(139,0,139));
         btnViewProperty.setForeground(Color.WHITE);
         getContentPane().add(btnViewProperty);
+        btnViewProperty.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object selected = table.getValueAt(table.getSelectedRow(), 1);
+                String str = (String) selected;
+               // new PropertyDetails(str);
+            }
+        });
 
         this.setTitle("Преглед на обяви˜");
         this.setIconImage(appIcon.getImage());
