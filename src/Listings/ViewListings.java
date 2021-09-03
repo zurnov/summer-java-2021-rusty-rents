@@ -105,6 +105,13 @@ public class ViewListings extends JFrame implements ActionListener {
         cbCityNameFilter = new JComboBox<String>();
         cbCityNameFilter.setBounds(255, 79, 130, 19);
         getContentPane().add(cbCityNameFilter);
+        cbCityNameFilter.addItem("");
+        ResultSet rsNameFilter = Database.getCities();
+        try {
+            while (rsNameFilter.next()) {
+                cbCityNameFilter.addItem(rsNameFilter.getString(1));
+            }
+        } catch(Exception e) {System.out.println(e);}
 
         // Property type filter label
         lblPropertyTypeFilter = new JLabel("Вид имот");
@@ -117,6 +124,15 @@ public class ViewListings extends JFrame implements ActionListener {
         cbPropertyTypeFilter = new JComboBox<String>();
         cbPropertyTypeFilter.setBounds(403, 79, 115, 19);
         getContentPane().add(cbPropertyTypeFilter);
+
+        // TODO (optional) : add the items using an array
+        cbPropertyTypeFilter.addItem("");
+        cbPropertyTypeFilter.addItem("Apartment");
+        cbPropertyTypeFilter.addItem("Studio");
+        cbPropertyTypeFilter.addItem("House");
+        cbPropertyTypeFilter.addItem("Villa");
+        cbPropertyTypeFilter.addItem("Office");
+        cbPropertyTypeFilter.addItem("Store");
 
         // Max price filter label
         lblMaxPriceFilter = new JLabel("Max. цена");
