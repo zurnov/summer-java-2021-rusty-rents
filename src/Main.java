@@ -1,9 +1,10 @@
 import Database.*;
 import Listings.*;
-import LogIn.LogIn;
-import Account.MyProfile;
+import LogIn.*;
+import Account.*;
 import Options.*;
 import Register.*;
+import MainMenu.*;
 
 import javax.swing.*;
 import java.awt.*;
