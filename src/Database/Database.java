@@ -236,6 +236,22 @@ public class Database {
         return currentUserId;
     }
 
+    public static ResultSet getCities() {
+
+        query = "SELECT City_Name FROM Cities";
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+        } catch (Exception e) {System.out.println(e);}
+
+        return rs;
+
+    }
+
     public static ResultSet getProperties() {
 
         String qSelect = "SELECT L.Listing_Title, C.City_Name, P.Property_Type, L.Listing_Price_Bgn";
