@@ -172,7 +172,7 @@ public class AddListing extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==backButton) {
             this.dispose();
-            new ViewListings();
+            new MyListings();
         }
 
         if (e.getSource()== AddButton) {
