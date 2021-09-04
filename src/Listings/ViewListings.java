@@ -154,6 +154,7 @@ public class ViewListings extends JFrame implements ActionListener {
 
         ResultSet rs = Database.getProperties();
         try {
+            int count = 0;
             while (rs.next()) {
                 row[0] = rs.getString(1);
                 row[1] = rs.getString(2);
@@ -161,6 +162,7 @@ public class ViewListings extends JFrame implements ActionListener {
                 row[3] = rs.getInt(4);
 
                 model.addRow(row);
+                model.setRowCount(count++);
             }
         } catch (Exception e) {System.out.println();}
 
@@ -173,7 +175,7 @@ public class ViewListings extends JFrame implements ActionListener {
         btnFilterResults.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO Filter listings
+
             }
         });
 
@@ -202,9 +204,7 @@ public class ViewListings extends JFrame implements ActionListener {
         btnViewProperty.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Object selected = table.getValueAt(table.getSelectedRow(), 1);
-                String str = (String) selected;
-               // new PropertyDetails(str);
+
             }
         });
 
@@ -220,10 +220,6 @@ public class ViewListings extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
 
         // TODO this.add(layeredPane);
-    }
-
-    private void addRow() {
-
     }
 
     @Override

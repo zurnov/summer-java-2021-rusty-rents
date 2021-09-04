@@ -3,6 +3,7 @@ package LogIn;
 import MainMenu.MainMenu;
 import Register.Register;
 import Database.Database;
+import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LogIn extends JFrame implements ActionListener {
+
     JButton logInButton;
     JButton registerButton;
 
@@ -91,6 +93,7 @@ public class LogIn extends JFrame implements ActionListener {
         if(e.getSource()==registerButton){
             this.dispose();
             new Register();
+
         }
         if(e.getSource()==logInButton){
             // Username and Password combination exist in Database i.e. Login is successful
