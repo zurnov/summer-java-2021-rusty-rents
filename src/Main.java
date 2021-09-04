@@ -12,6 +12,8 @@ public class Main {
     public static void main(String[] args) {
         Database.establishConnection();
        // new ViewListings();
+       new AddListing();
+       new EditListingDetails();
        new ListingDetails();
     }
 }

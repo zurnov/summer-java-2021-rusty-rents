@@ -1,20 +1,19 @@
 package Listings;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ListingDetails extends JFrame implements ActionListener {
+public class AddListing extends JFrame implements ActionListener {
 
     // Variables
     JLabel name,city,neighborhood,streetName,numberOfStreet,floor,appNumber,type,m2,price,phoneNumber,listingReq;
-    JLabel nameData,cityData,neighborhoodData,streetNameData,numberOfStreetData,floorData,appNumberData,typeData,m2Data,priceData,phoneNumberData;
-    JButton backButton, apiButton;
+    JTextField nameData,cityData,neighborhoodData,streetNameData,numberOfStreetData,floorData,appNumberData,typeData,m2Data,priceData,phoneNumberData;
+    JButton backButton, AddButton;
     JLayeredPane layeredPane;
     ImageIcon backIcon, appIcon;
-    String temp = "PLACEHOLDER";
+    String temp;
 
     // JLabel positions and dimensions
     int lx = 50;
@@ -35,12 +34,13 @@ public class ListingDetails extends JFrame implements ActionListener {
     int lheight = 15;
 
     //JButton positions and dimensions
-    int bx1 = 175;
+    int bx1 = 150;
     int by = y11 + spaceBetweenRows + 20;
-    int bwidth = 150;
+    //150
+    int bwidth = 190;
     int bheight = 50;
 
-    public ListingDetails() {
+    public AddListing() {
 
         backIcon = new ImageIcon("BackIcon.png");
         appIcon = new ImageIcon("RustyRentsIcon.png");
@@ -78,41 +78,41 @@ public class ListingDetails extends JFrame implements ActionListener {
         phoneNumber = new JLabel("Телефон за връзка: ");
         phoneNumber.setBounds(lx,y11, lwidth, lheight);
 
-        listingReq = new JLabel("Детайли за обявата: ");
-        listingReq.setBounds(190,20,300,15);
+        listingReq = new JLabel("Моля, въведете данните за вашата обява: ");
+        listingReq.setBounds(120,20,300,15);
         listingReq.setForeground(Color.magenta);
 
-        nameData = new JLabel(temp);
+        nameData = new JTextField(temp);
         nameData.setBounds(lxData,y1, lwidth, lheight);
 
-        cityData = new JLabel(temp);
+        cityData = new JTextField(temp);
         cityData.setBounds(lxData,y2, lwidth, lheight);
 
-        neighborhoodData = new JLabel(temp);
+        neighborhoodData = new JTextField(temp);
         neighborhoodData.setBounds(lxData,y3, lwidth, lheight);
 
-        streetNameData = new JLabel(temp);
+        streetNameData = new JTextField(temp);
         streetNameData.setBounds(lxData,y4, lwidth, lheight);
 
-        numberOfStreetData = new JLabel(temp);
+        numberOfStreetData = new JTextField(temp);
         numberOfStreetData.setBounds(lxData,y5, lwidth, lheight);
 
-        floorData = new JLabel(temp);
+        floorData = new JTextField(temp);
         floorData.setBounds(lxData,y6, lwidth, lheight);
 
-        appNumberData = new JLabel(temp);
+        appNumberData = new JTextField(temp);
         appNumberData.setBounds(lxData,y7, lwidth, lheight);
 
-        typeData = new JLabel(temp);
+        typeData = new JTextField(temp);
         typeData.setBounds(lxData,y8, lwidth, lheight);
 
-        m2Data = new JLabel(temp);
+        m2Data = new JTextField(temp);
         m2Data.setBounds(lxData,y9, lwidth, lheight);
 
-        priceData = new JLabel(temp);
+        priceData = new JTextField(temp);
         priceData.setBounds(lxData,y10, lwidth, lheight);
 
-        phoneNumberData = new JLabel(temp);
+        phoneNumberData = new JTextField(temp);
         phoneNumberData.setBounds(lxData,y11, lwidth, lheight);
 
 
@@ -124,12 +124,12 @@ public class ListingDetails extends JFrame implements ActionListener {
         backButton.setContentAreaFilled(false);
         backButton.setBorderPainted(false);
 
-        apiButton = new JButton("Виж на картата");
-        apiButton.setBounds(bx1,by,bwidth,bheight);
-        apiButton.setBackground(new Color(139,0,139));
-        apiButton.setForeground(Color.WHITE);
-        apiButton.setFocusable(false);
-        apiButton.addActionListener(this);
+        AddButton = new JButton("Публикувай обявата");
+        AddButton.setBounds(bx1,by,bwidth,bheight);
+        AddButton.setBackground(new Color(139,0,139));
+        AddButton.setForeground(Color.WHITE);
+        AddButton.setFocusable(false);
+        AddButton.addActionListener(this);
 
 
         layeredPane = new JLayeredPane();
@@ -158,10 +158,10 @@ public class ListingDetails extends JFrame implements ActionListener {
         layeredPane.add(phoneNumber, Integer.valueOf(20));
         layeredPane.add(phoneNumberData, Integer.valueOf(21));
         layeredPane.add(backButton, Integer.valueOf(22));
-        layeredPane.add(apiButton, Integer.valueOf(23));
+        layeredPane.add(AddButton, Integer.valueOf(23));
         layeredPane.add(listingReq, Integer.valueOf(24));
 
-        this.setTitle("Детайли на обява");
+        this.setTitle("Публикуване на обява");
         this.setSize(500,650);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -175,7 +175,7 @@ public class ListingDetails extends JFrame implements ActionListener {
             new ViewListings();
         }
 
-        if (e.getSource()==apiButton) {
+        if (e.getSource()== AddButton) {
             //API Jframe
         }
     }
