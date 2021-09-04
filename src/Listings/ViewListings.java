@@ -37,8 +37,6 @@ public class ViewListings extends JFrame implements ActionListener {
     private JComboBox<String> cbCityNameFilter;
     private JComboBox<String> cbPropertyTypeFilter;
 
-    // text fields
-    private JTextField tfListingNameFilter;
     private JTextField tfMaxPriceFilter;
 
     private final int LABELS_FONT_SIZE = 15;
@@ -61,9 +59,9 @@ public class ViewListings extends JFrame implements ActionListener {
         //TODO Connect DB with table
         table = new JTable();
         table.setModel(model);
-        table.setBackground(Color.MAGENTA);
+        table.setBackground(Color.white);
         table.setForeground(Color.black);
-        table.setSelectionBackground(Color.red);
+        table.setSelectionBackground(new Color(139, 0, 139));
         table.setGridColor(Color.red);
         table.setSelectionForeground(Color.white);
         table.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -82,17 +80,11 @@ public class ViewListings extends JFrame implements ActionListener {
         //
 
         // Listing name label
-        lblListingNameFilter = new JLabel("Име на обявата");
+        lblListingNameFilter = new JLabel("Филтриране на резултатите:");
         lblListingNameFilter.setFont(new Font("Tahoma", Font.PLAIN, LABELS_FONT_SIZE));
         lblListingNameFilter.setForeground(Color.BLACK);
-        lblListingNameFilter.setBounds(54, LABELS_POSITION_Y, 250, LABELS_HEIGHT);
+        lblListingNameFilter.setBounds(40, 60, 250, LABELS_HEIGHT);
         getContentPane().add(lblListingNameFilter);
-
-        // Listing name text field
-        tfListingNameFilter = new JTextField();
-        tfListingNameFilter.setBounds(44, 79, 200, 19);
-        getContentPane().add(tfListingNameFilter);
-        tfListingNameFilter.setColumns(10);
 
         // City name filter label
         lblCityNameFilter = new JLabel("Град");
@@ -173,14 +165,14 @@ public class ViewListings extends JFrame implements ActionListener {
         btnFilterResults.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 model.setRowCount(0);
 
-                String titleFilter = tfListingNameFilter.getText();
                 String cityFilter = cbCityNameFilter.getSelectedItem().toString();
                 String typeFilter = cbPropertyTypeFilter.getSelectedItem().toString();
                 String priceFilter = tfMaxPriceFilter.getText();
 
-                ResultSet rs = Database.getFilteredProperties(titleFilter, cityFilter, typeFilter, priceFilter);
+                ResultSet rs = Database.getFilteredProperties(cityFilter, typeFilter, priceFilter);
 
                 try {
                     while (rs.next()) {

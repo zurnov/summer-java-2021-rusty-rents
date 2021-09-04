@@ -270,13 +270,43 @@ public class Database {
 
     }
 
-    public static ResultSet getFilteredProperties(String title, String city, String type, String price) {
+    public static ResultSet getFilteredProperties(String city, String type, String price) {
 
         String qSelect = "SELECT L.Listing_Title, C.City_Name, P.Property_Type, L.Listing_Price_Bgn";
         String qFrom = "FROM Listings L JOIN Properties P ON P.Property_Id = L.Property_Id JOIN Cities C ON C.City_Id = P.City_Id";
-        String qWhere = "WHERE L.Listing_Title = '" + title + "' AND C.City_Name = '" + city + "' AND P.Property_Type = '" + type + "' AND L.Listing_Price_Bgn = '" + price + "'";
 
-        query = qSelect + " " + qFrom + " " + qWhere;
+        query = qSelect + " " + qFrom;
+
+        String qWhere = new String();
+
+        // 1. ! ! !
+        if (!city.isEmpty() && !type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "' AND P.Property_Type = '" + type + "' AND L.Listing_Price_Bgn <= '" + price + "'";
+        // 2. ! ! e
+        if (!city.isEmpty() && !type.isEmpty() && price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "' AND P.Property_Type = '" + type + "'";
+        // 3. ! e !
+        if (!city.isEmpty() && type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "' AND L.Listing_Price_Bgn <= '" + price + "'";
+        // 4. ! e e
+        if (!city.isEmpty() && type.isEmpty() && price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "'";
+        // 5. e ! !
+        if (city.isEmpty() && !type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE P.Property_Type = '" + type + "' AND L.Listing_Price_Bgn <= '" + price + "'";
+        // 6. e ! e
+        if (city.isEmpty() && !type.isEmpty() && price.isEmpty())
+            qWhere = "WHERE P.Property_Type = '" + type + "'";
+        // 7. e e !
+        if (city.isEmpty() && type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE L.Listing_Price_Bgn <= '" + price + "'";
+        // 8. e e e - return all listings
+        if (city.isEmpty() && type.isEmpty() && price.isEmpty())
+            return getProperties();
+
+        query += " " + qWhere;
+
+        //System.out.println(query);
 
         ResultSet rs = null;
 
