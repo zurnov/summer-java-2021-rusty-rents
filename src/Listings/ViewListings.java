@@ -146,7 +146,7 @@ public class ViewListings extends JFrame implements ActionListener {
 
                 model.addRow(row);
             }
-        } catch (Exception e) {System.out.println();}
+        } catch (Exception e) {System.out.println(e);}
 
         // Search button
         JButton btnFilterResults = new JButton("Търси");
@@ -157,7 +157,26 @@ public class ViewListings extends JFrame implements ActionListener {
         btnFilterResults.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO Filter listings
+                model.setRowCount(0);
+
+                String titleFilter = tfListingNameFilter.getText();
+                String cityFilter = cbCityNameFilter.getSelectedItem().toString();
+                String typeFilter = cbPropertyTypeFilter.getSelectedItem().toString();
+                String priceFilter = tfMaxPriceFilter.getText();
+
+                ResultSet rs = Database.getFilteredProperties(titleFilter, cityFilter, typeFilter, priceFilter);
+
+                try {
+                    while (rs.next()) {
+                        row[0] = rs.getString(1);
+                        row[1] = rs.getString(2);
+                        row[2] = rs.getString(3);
+                        row[3] = rs.getInt(4);
+
+                        model.addRow(row);
+                    }
+                } catch (Exception exc) {System.out.println(exc);}
+
             }
         });
 
@@ -186,9 +205,7 @@ public class ViewListings extends JFrame implements ActionListener {
         btnViewProperty.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Object selected = table.getValueAt(table.getSelectedRow(), 1);
-                String str = (String) selected;
-               // new PropertyDetails(str);
+
             }
         });
 

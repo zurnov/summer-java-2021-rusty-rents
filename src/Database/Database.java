@@ -254,12 +254,13 @@ public class Database {
 
     }
 
-    public static ResultSet getFilteredProperties(String city, String quarter, String Type, int area, int price) {
+    public static ResultSet getFilteredProperties(String title, String city, String type, String price) {
 
         String qSelect = "SELECT L.Listing_Title, C.City_Name, P.Property_Type, L.Listing_Price_Bgn";
         String qFrom = "FROM Listings L JOIN Properties P ON P.Property_Id = L.Property_Id JOIN Cities C ON C.City_Id = P.City_Id";
-        //String qWhere = "WHERE C.City_Name = '" + city + "' AND "
-        query = qSelect + " " + qFrom;
+        String qWhere = "WHERE L.Listing_Title = '" + title + "' AND C.City_Name = '" + city + "' AND P.Property_Type = '" + type + "' AND L.Listing_Price_Bgn = '" + price + "'";
+
+        query = qSelect + " " + qFrom + " " + qWhere;
 
         ResultSet rs = null;
 
