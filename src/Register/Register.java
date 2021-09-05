@@ -195,6 +195,8 @@ public class Register extends JFrame implements ActionListener {
 
         this.add(panelContainer);
         this.pack();
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
     private static void initializeSubPanels(JPanel panel1,JPanel panel2,JPanel panel3){

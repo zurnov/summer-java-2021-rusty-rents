@@ -233,9 +233,10 @@ public class ViewListings extends JFrame implements ActionListener {
         this.getContentPane().setForeground(Color.WHITE);
         this.setResizable(false);
         this.setBounds(100,100,757,500);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.getContentPane().add(pane);
-        this.setLocationRelativeTo(null);
 
         // TODO this.add(layeredPane);
     }

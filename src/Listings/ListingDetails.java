@@ -192,6 +192,8 @@ public class ListingDetails extends JFrame implements ActionListener {
         this.setTitle("Детайли на обява");
         this.setSize(500,650);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.add(layeredPane);
     }

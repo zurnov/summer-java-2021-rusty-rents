@@ -36,13 +36,19 @@ public class PopUpWindow extends JFrame implements ActionListener {
         pain.add(backToLogInButton, Integer.valueOf(2));
         pain.setOpaque(false);
 
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         this.setIconImage(logo.getImage());
         this.setTitle("Successful Login");
-        this.setVisible(true);
-        this.setResizable(true);
+
         this.setSize(500, 160);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+
         this.add(pain);
+
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+
     }
 
     @Override

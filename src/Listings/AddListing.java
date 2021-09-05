@@ -164,6 +164,8 @@ public class AddListing extends JFrame implements ActionListener {
         this.setTitle("Публикуване на обява");
         this.setSize(500,650);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.add(layeredPane);
     }

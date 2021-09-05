@@ -88,6 +88,8 @@ public class ChangeEmail extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setSize(500,300);
         this.add(layeredPane);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
     }

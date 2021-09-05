@@ -85,6 +85,7 @@ public class LogIn extends JFrame implements ActionListener {
         registerButton.setForeground(Color.WHITE);
         footerPanel.add(registerButton);
 
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
