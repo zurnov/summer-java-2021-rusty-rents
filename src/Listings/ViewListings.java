@@ -214,6 +214,15 @@ public class ViewListings extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow == -1) {
+                    System.out.println("No row selected.");
+                    return;
+                }
+                String selectedRowTitle = model.getValueAt(selectedRow, 0).toString();
+                System.out.println(selectedRowTitle);
+
+                new ListingDetails(Database.getPropertyDetails(selectedRowTitle));
             }
         });
 

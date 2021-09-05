@@ -320,4 +320,25 @@ public class Database {
 
     }
 
+    public static ResultSet getPropertyDetails(String listingTitle) {
+
+        String qSelect = "SELECT L.Listing_Title, C.City_Name, Q.Quarter_Name, 'ул. \"' || P.Street_Name || '\" № ' || P.Street_Number, P.Floor, P.Door_Number,"
+                + " " + "P.Property_Type, P.Property_Area_Sqm, L.Listing_Price_Bgn, L.Listing_Phone_Number, P.Location_Url";
+        String qFrom = "FROM Listings L JOIN Properties P USING (Property_Id) JOIN Cities C USING (City_Id) JOIN City_Quarters Q USING (Quarter_Id)";
+        String qWhere = "WHERE L.Listing_Title = '" + listingTitle + "'";
+
+        query = qSelect + " " + qFrom + " " + qWhere;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+        } catch (Exception e) {System.out.println(e);}
+
+        return rs;
+
+    }
+
 }

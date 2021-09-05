@@ -15,9 +15,11 @@ public class Main {
     public static void main(String[] args) {
         Database.establishConnection();
         new LogIn();
+        //new Register();
         //new MyProfile();
         //new MyListings();
         new ViewListings();
+        //new ListingDetails(null);
         //new ChangeEmail();
         //new ChangePassword();
         //new Options();

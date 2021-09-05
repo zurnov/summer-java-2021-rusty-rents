@@ -1,16 +1,16 @@
 package Listings;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 public class ListingDetails extends JFrame implements ActionListener {
 
     // Variables
     JLabel name,city,neighborhood,streetName,numberOfStreet,floor,appNumber,type,m2,price,phoneNumber,listingReq;
-    JLabel nameData,cityData,neighborhoodData,streetNameData,numberOfStreetData,floorData,appNumberData,typeData,m2Data,priceData,phoneNumberData;
+    JLabel nameData,cityData,neighborhoodData, addressData,numberOfStreetData,floorData, doorNumberData,typeData,m2Data,priceData,phoneNumberData;
     JButton backButton, apiButton;
     JLayeredPane layeredPane;
     ImageIcon backIcon, appIcon;
@@ -40,7 +40,8 @@ public class ListingDetails extends JFrame implements ActionListener {
     int bwidth = 150;
     int bheight = 50;
 
-    public ListingDetails() {
+    // constructor
+    public ListingDetails(ResultSet rs) {
 
         backIcon = new ImageIcon("BackIcon.png");
         appIcon = new ImageIcon("RustyRentsIcon.png");
@@ -51,69 +52,77 @@ public class ListingDetails extends JFrame implements ActionListener {
         city = new JLabel("Град: ");
         city.setBounds(lx,y2, lwidth, lheight);
 
-        neighborhood = new JLabel("Квартал на града: ");
+        neighborhood = new JLabel("Квартал: ");
         neighborhood.setBounds(lx,y3, lwidth, lheight);
 
         streetName = new JLabel("Име на улица: ");
         streetName.setBounds(lx,y4, lwidth, lheight);
 
-        numberOfStreet = new JLabel("Номер на улица: ");
-        numberOfStreet.setBounds(lx,y5, lwidth, lheight);
+        //numberOfStreet = new JLabel("Номер на улица: ");
+        //numberOfStreet.setBounds(lx,y5, lwidth, lheight);
 
-        floor = new JLabel("Етаж (по избор): ");
+        floor = new JLabel("Етаж: ");
         floor.setBounds(lx,y6, lwidth, lheight);
 
-        appNumber = new JLabel("<html>Номер на стая/апартамент: <br/>(по избор)</html>");
+        appNumber = new JLabel("Номер на врата:");
         appNumber.setBounds(lx,y7, lwidth, lheight + 15);
 
         type = new JLabel("Вид на имота: ");
         type.setBounds(lx,y8, lwidth, lheight);
 
-        m2 = new JLabel("Квадратура: ");
+        m2 = new JLabel("Квадратура (кв. м.): ");
         m2.setBounds(lx,y9, lwidth, lheight);
 
-        price = new JLabel("Цена (в лв.): ");
+        price = new JLabel("Цена (лв.): ");
         price.setBounds(lx,y10, lwidth, lheight);
 
         phoneNumber = new JLabel("Телефон за връзка: ");
         phoneNumber.setBounds(lx,y11, lwidth, lheight);
 
-        listingReq = new JLabel("Моля, въведете данните за вашата обява: ");
+        listingReq = new JLabel("Подробности за обява:");
         listingReq.setBounds(120,20,300,15);
         listingReq.setForeground(Color.magenta);
 
-        nameData = new JLabel(temp);
-        nameData.setBounds(lxData,y1, lwidth, lheight);
+        try {
+            if (rs.next()) {
+                nameData = new JLabel(rs.getString(1));
+                nameData.setBounds(lxData, y1, lwidth, lheight);
 
-        cityData = new JLabel(temp);
-        cityData.setBounds(lxData,y2, lwidth, lheight);
+                cityData = new JLabel(rs.getString(2));
+                cityData.setBounds(lxData, y2, lwidth, lheight);
 
-        neighborhoodData = new JLabel(temp);
-        neighborhoodData.setBounds(lxData,y3, lwidth, lheight);
+                neighborhoodData = new JLabel(rs.getString(3));
+                neighborhoodData.setBounds(lxData, y3, lwidth, lheight);
 
-        streetNameData = new JLabel(temp);
-        streetNameData.setBounds(lxData,y4, lwidth, lheight);
+                addressData = new JLabel(rs.getString(4));
+                addressData.setBounds(lxData, y4, lwidth, lheight);
 
-        numberOfStreetData = new JLabel(temp);
-        numberOfStreetData.setBounds(lxData,y5, lwidth, lheight);
+                //numberOfStreetData = new JLabel(rs.getString(5));
+                //numberOfStreetData.setBounds(lxData, y5, lwidth, lheight);
 
-        floorData = new JLabel(temp);
-        floorData.setBounds(lxData,y6, lwidth, lheight);
+                floorData = new JLabel(rs.getString(5));
+                floorData.setBounds(lxData, y6, lwidth, lheight);
 
-        appNumberData = new JLabel(temp);
-        appNumberData.setBounds(lxData,y7, lwidth, lheight);
+                doorNumberData = new JLabel(rs.getString(6));
+                doorNumberData.setBounds(lxData, y7, lwidth, lheight);
 
-        typeData = new JLabel(temp);
-        typeData.setBounds(lxData,y8, lwidth, lheight);
+                typeData = new JLabel(rs.getString(7));
+                typeData.setBounds(lxData, y8, lwidth, lheight);
 
-        m2Data = new JLabel(temp);
-        m2Data.setBounds(lxData,y9, lwidth, lheight);
+                m2Data = new JLabel(rs.getString(8));
+                m2Data.setBounds(lxData, y9, lwidth, lheight);
 
-        priceData = new JLabel(temp);
-        priceData.setBounds(lxData,y10, lwidth, lheight);
+                priceData = new JLabel(rs.getString(9));
+                priceData.setBounds(lxData, y10, lwidth, lheight);
 
-        phoneNumberData = new JLabel(temp);
-        phoneNumberData.setBounds(lxData,y11, lwidth, lheight);
+                phoneNumberData = new JLabel(rs.getString(10));
+                phoneNumberData.setBounds(lxData, y11, lwidth, lheight);
+            }
+            else {
+                System.out.println("ResultSet for ListingDetails is null.");
+            }
+        }
+        catch (Exception e) {System.out.println(e);}
 
 
         backButton = new JButton(backIcon);
@@ -139,7 +148,7 @@ public class ListingDetails extends JFrame implements ActionListener {
         layeredPane.add(city, Integer.valueOf(1));
         layeredPane.add(neighborhood, Integer.valueOf(2));
         layeredPane.add(streetName, Integer.valueOf(3));
-        layeredPane.add(numberOfStreet, Integer.valueOf(4));
+        //layeredPane.add(numberOfStreet, Integer.valueOf(4));
         layeredPane.add(floor, Integer.valueOf(5));
         layeredPane.add(appNumber, Integer.valueOf(6));
         layeredPane.add(type, Integer.valueOf(7));
@@ -148,10 +157,10 @@ public class ListingDetails extends JFrame implements ActionListener {
         layeredPane.add(nameData, Integer.valueOf(10));
         layeredPane.add(cityData, Integer.valueOf(11));
         layeredPane.add(neighborhoodData, Integer.valueOf(12));
-        layeredPane.add(streetNameData, Integer.valueOf(13));
-        layeredPane.add(numberOfStreetData, Integer.valueOf(14));
+        layeredPane.add(addressData, Integer.valueOf(13));
+        //layeredPane.add(numberOfStreetData, Integer.valueOf(14));
         layeredPane.add(floorData, Integer.valueOf(15));
-        layeredPane.add(appNumberData, Integer.valueOf(16));
+        layeredPane.add(doorNumberData, Integer.valueOf(16));
         layeredPane.add(typeData, Integer.valueOf(17));
         layeredPane.add(m2Data, Integer.valueOf(18));
         layeredPane.add(priceData, Integer.valueOf(19));
@@ -172,7 +181,8 @@ public class ListingDetails extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==backButton) {
             this.dispose();
-            new ViewListings();
+            // not needed; ViewListings will stay open
+            //new ViewListings();
         }
 
         if (e.getSource()==apiButton) {
