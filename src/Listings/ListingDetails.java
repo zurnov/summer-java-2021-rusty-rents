@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.sql.ResultSet;
 
 public class ListingDetails extends JFrame implements ActionListener {
@@ -138,7 +139,18 @@ public class ListingDetails extends JFrame implements ActionListener {
         apiButton.setBackground(new Color(139,0,139));
         apiButton.setForeground(Color.WHITE);
         apiButton.setFocusable(false);
-        apiButton.addActionListener(this);
+        apiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Desktop desktop = java.awt.Desktop.getDesktop();
+                    URI oURL = new URI(rs.getString(11));
+                    desktop.browse(oURL);
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+            }
+        });
 
 
         layeredPane = new JLayeredPane();
