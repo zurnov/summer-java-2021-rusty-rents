@@ -21,7 +21,7 @@ public class PopUpWindow extends JFrame implements ActionListener {
         backToLogInButton.setBackground(new Color(139,0,139));
         backToLogInButton.setForeground(Color.WHITE);
 
-        JLabel text = new JLabel("Върнете се обратно в Log In менюто! Сега се log-нете във вашия акаунт.");
+        JLabel text = new JLabel("Вие се регистрирахте успешно! Моля, логнете се с Вашите данни.");
         text.setBounds(10, 0,500,30);
 
         JPanel background = new JPanel();
@@ -37,7 +37,7 @@ public class PopUpWindow extends JFrame implements ActionListener {
         pain.setOpaque(false);
 
         this.setIconImage(logo.getImage());
-        this.setTitle("test                                                    PHP <3");
+        this.setTitle("Successful Login");
         this.setVisible(true);
         this.setResizable(true);
         this.setSize(500, 160);

@@ -149,6 +149,25 @@ public class Database {
 
     }
 
+    public static void addUserProfileFor(String username, String firstName, String lastName, String phoneNumber) {
+
+        int userId = getUserId(username);
+
+        query = "INSERT INTO Profiles VALUES(Users_Profiles_SEQ.NEXTVAL, " + userId + ", '"
+                + firstName + "', '" + lastName + "', '" + phoneNumber + "')";
+
+        System.out.println("Database.addUserProfileFor : insert query given username, first name, last name and phone number:");
+        System.out.println(query);
+
+        try {
+
+            statement.executeQuery(query);
+            statement.executeQuery("COMMIT");
+
+        } catch(Exception e) {System.out.println(e);}
+
+    }
+
     public static boolean checkEmailMatch(String email) {
 
         query = "SELECT Email_Address FROM Users WHERE User_Id = " + currentUserId;
