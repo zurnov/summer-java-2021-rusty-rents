@@ -1,19 +1,21 @@
 package Listings;
 
+import Database.Database;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 public class EditListingDetails extends JFrame implements ActionListener {
 
-    // Variables
-    JLabel name,city,neighborhood,streetName,numberOfStreet,floor,appNumber,type,m2,price,phoneNumber, editReq;
-    JTextField nameData,cityData,neighborhoodData,streetNameData,numberOfStreetData,floorData,appNumberData,typeData,m2Data,priceData,phoneNumberData;
-    JButton backButton, renameButton;
+    JLabel lblListingTitle, lblCityName, lblCityQuarter, lblStreetName, lblStreetNumber, lblFloor, lblDoorNumber, lblPropertyType, lblPropertyArea, lblPrice, lblPhoneNumber, lblEditMessage;
+    JTextField tfListingTitle, tfCityQuarter, tfStreetName, tfStreetData, tfFloor, tfDoorNumber, tfPropertyArea, tfPrice, tfPhoneNumber;
+    JComboBox<String> cbCity, cbPropertyType;
+    JButton btnBack, btnApplyChanges;
     JLayeredPane layeredPane;
     ImageIcon backIcon, appIcon;
-    String temp = "PLACEHOLDER";
 
     // JLabel positions and dimensions
     int lx = 50;
@@ -30,151 +32,178 @@ public class EditListingDetails extends JFrame implements ActionListener {
     int y9 = y8 + spaceBetweenRows;
     int y10 = y9 + spaceBetweenRows;
     int y11 = y10 + spaceBetweenRows;
-    int lwidth = 170;
-    int lheight = 15;
+    final int ELEMENTS_WIDTH = 170;
+    final int ELEMENTS_HEIGHT = 20;
 
     //JButton positions and dimensions
     int bx1 = 150;
     int by = y11 + spaceBetweenRows + 20;
     //150
-    int bwidth = 190;
-    int bheight = 50;
+    final int BUTTONS_WIDTH = 190;
+    final int BUTTONS_HEIGHT = 50;
 
-    public EditListingDetails() {
+    public EditListingDetails(ResultSet rs) {
 
         backIcon = new ImageIcon("BackIcon.png");
         appIcon = new ImageIcon("RustyRentsIcon.png");
 
-        name = new JLabel("Име на обявата: ");
-        name.setBounds(lx, y1, lwidth, lheight);
+        // Labels
+        lblListingTitle = new JLabel("Име на обявата: ");
+        lblListingTitle.setBounds(lx, y1, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        city = new JLabel("Град: ");
-        city.setBounds(lx,y2, lwidth, lheight);
+        lblCityName = new JLabel("Град: ");
+        lblCityName.setBounds(lx,y2, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        neighborhood = new JLabel("Квартал на града: ");
-        neighborhood.setBounds(lx,y3, lwidth, lheight);
+        lblCityQuarter = new JLabel("Квартал на града: ");
+        lblCityQuarter.setBounds(lx,y3, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        streetName = new JLabel("Име на улица: ");
-        streetName.setBounds(lx,y4, lwidth, lheight);
+        lblStreetName = new JLabel("Име на улица: ");
+        lblStreetName.setBounds(lx,y4, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        numberOfStreet = new JLabel("Номер на улица: ");
-        numberOfStreet.setBounds(lx,y5, lwidth, lheight);
+        lblStreetNumber = new JLabel("Номер на улица: ");
+        lblStreetNumber.setBounds(lx,y5, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        floor = new JLabel("Етаж (по избор): ");
-        floor.setBounds(lx,y6, lwidth, lheight);
+        lblFloor = new JLabel("Етаж:");
+        lblFloor.setBounds(lx,y6, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        appNumber = new JLabel("<html>Номер на стая/апартамент: <br/>(по избор)</html>");
-        appNumber.setBounds(lx,y7, lwidth, lheight + 15);
+        lblDoorNumber = new JLabel("Номер на врата:");
+        lblDoorNumber.setBounds(lx,y7, ELEMENTS_WIDTH, ELEMENTS_HEIGHT + 15);
 
-        type = new JLabel("Вид на имота: ");
-        type.setBounds(lx,y8, lwidth, lheight);
+        lblPropertyType = new JLabel("Вид на имота: ");
+        lblPropertyType.setBounds(lx,y8, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        m2 = new JLabel("Квадратура: ");
-        m2.setBounds(lx,y9, lwidth, lheight);
+        lblPropertyArea = new JLabel("Квадратура (кв. м.): ");
+        lblPropertyArea.setBounds(lx,y9, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        price = new JLabel("Цена (в лв.): ");
-        price.setBounds(lx,y10, lwidth, lheight);
+        lblPrice = new JLabel("Цена (лв.): ");
+        lblPrice.setBounds(lx,y10, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        phoneNumber = new JLabel("Телефон за връзка: ");
-        phoneNumber.setBounds(lx,y11, lwidth, lheight);
+        lblPhoneNumber = new JLabel("Телефон за връзка: ");
+        lblPhoneNumber.setBounds(lx,y11, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        editReq = new JLabel("Моля, редактирайте данните за вашата обявата: ");
-        editReq.setBounds(120,20,350,15);
-        editReq.setForeground(Color.magenta);
+        lblEditMessage = new JLabel("Моля, редактирайте данните за Вашата обява:");
+        lblEditMessage.setBounds(100,20,350,15);
+        lblEditMessage.setForeground(Color.magenta);
 
-        nameData = new JTextField(temp);
-        nameData.setBounds(lxData,y1, lwidth, lheight);
+        // Text fields
+        try {
+            tfListingTitle = new JTextField();
+            tfListingTitle.setBounds(lxData, y1, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        cityData = new JTextField(temp);
-        cityData.setBounds(lxData,y2, lwidth, lheight);
+            cbCity = new JComboBox<String>();
+            cbCity.setBounds(lxData, y2, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
+            cbCity.addItem("");
+            ResultSet rsCities = Database.getCities();
+            try {
+                while (rsCities.next()) {
+                    cbCity.addItem(rsCities.getString(1));
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            //cbCity.setSelectedIndex(Database.getCityId(rs.getString(2)));
 
-        neighborhoodData = new JTextField(temp);
-        neighborhoodData.setBounds(lxData,y3, lwidth, lheight);
+            tfCityQuarter = new JTextField();
+            tfCityQuarter.setBounds(lxData, y3, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        streetNameData = new JTextField(temp);
-        streetNameData.setBounds(lxData,y4, lwidth, lheight);
+            tfStreetName = new JTextField();
+            tfStreetName.setBounds(lxData, y4, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        numberOfStreetData = new JTextField(temp);
-        numberOfStreetData.setBounds(lxData,y5, lwidth, lheight);
+            tfStreetData = new JTextField();
+            tfStreetData.setBounds(lxData, y5, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        floorData = new JTextField(temp);
-        floorData.setBounds(lxData,y6, lwidth, lheight);
+            tfFloor = new JTextField();
+            tfFloor.setBounds(lxData, y6, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        appNumberData = new JTextField(temp);
-        appNumberData.setBounds(lxData,y7, lwidth, lheight);
+            tfDoorNumber = new JTextField();
+            tfDoorNumber.setBounds(lxData, y7, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        typeData = new JTextField(temp);
-        typeData.setBounds(lxData,y8, lwidth, lheight);
+            cbPropertyType = new JComboBox<String>();
+            cbPropertyType.setBounds(lxData, y8, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
+            // TODO (optional) : add the items using an array
+            cbPropertyType.addItem("");
+            cbPropertyType.addItem("Apartment");
+            cbPropertyType.addItem("Studio");
+            cbPropertyType.addItem("House");
+            cbPropertyType.addItem("Villa");
+            cbPropertyType.addItem("Office");
+            cbPropertyType.addItem("Store");
+            //cbPropertyType.setSelectedIndex(Database.getPropertyType(title));
 
-        m2Data = new JTextField(temp);
-        m2Data.setBounds(lxData,y9, lwidth, lheight);
 
-        priceData = new JTextField(temp);
-        priceData.setBounds(lxData,y10, lwidth, lheight);
+            tfPropertyArea = new JTextField();
+            tfPropertyArea.setBounds(lxData, y9, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        phoneNumberData = new JTextField(temp);
-        phoneNumberData.setBounds(lxData,y11, lwidth, lheight);
+            tfPrice = new JTextField();
+            tfPrice.setBounds(lxData, y10, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
+            tfPhoneNumber = new JTextField();
+            tfPhoneNumber.setBounds(lxData, y11, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
 
-        backButton = new JButton(backIcon);
-        backButton.setBounds(5, 5, 50,50);
-        backButton.setFocusable(false);
-        backButton.addActionListener(this);
-        backButton.setOpaque(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setBorderPainted(false);
+        btnBack = new JButton(backIcon);
+        btnBack.setBounds(5, 5, 50,50);
+        btnBack.setFocusable(false);
+        btnBack.addActionListener(this);
+        btnBack.setOpaque(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setBorderPainted(false);
 
-        renameButton = new JButton("Завърши редактирането");
-        renameButton.setBounds(bx1,by,bwidth,bheight);
-        renameButton.setBackground(new Color(139,0,139));
-        renameButton.setForeground(Color.WHITE);
-        renameButton.setFocusable(false);
-        renameButton.addActionListener(this);
-
+        btnApplyChanges = new JButton("Запази");
+        btnApplyChanges.setBounds(bx1,by, BUTTONS_WIDTH, BUTTONS_HEIGHT);
+        btnApplyChanges.setBackground(new Color(139,0,139));
+        btnApplyChanges.setForeground(Color.WHITE);
+        btnApplyChanges.setFocusable(false);
+        btnApplyChanges.addActionListener(this);
 
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(0,0,500,650);
         layeredPane.setVisible(true);
-        layeredPane.add(name, Integer.valueOf(0));
-        layeredPane.add(city, Integer.valueOf(1));
-        layeredPane.add(neighborhood, Integer.valueOf(2));
-        layeredPane.add(streetName, Integer.valueOf(3));
-        layeredPane.add(numberOfStreet, Integer.valueOf(4));
-        layeredPane.add(floor, Integer.valueOf(5));
-        layeredPane.add(appNumber, Integer.valueOf(6));
-        layeredPane.add(type, Integer.valueOf(7));
-        layeredPane.add(m2, Integer.valueOf(8));
-        layeredPane.add(price, Integer.valueOf(9));
-        layeredPane.add(nameData, Integer.valueOf(10));
-        layeredPane.add(cityData, Integer.valueOf(11));
-        layeredPane.add(neighborhoodData, Integer.valueOf(12));
-        layeredPane.add(streetNameData, Integer.valueOf(13));
-        layeredPane.add(numberOfStreetData, Integer.valueOf(14));
-        layeredPane.add(floorData, Integer.valueOf(15));
-        layeredPane.add(appNumberData, Integer.valueOf(16));
-        layeredPane.add(typeData, Integer.valueOf(17));
-        layeredPane.add(m2Data, Integer.valueOf(18));
-        layeredPane.add(priceData, Integer.valueOf(19));
-        layeredPane.add(phoneNumber, Integer.valueOf(20));
-        layeredPane.add(phoneNumberData, Integer.valueOf(21));
-        layeredPane.add(backButton, Integer.valueOf(22));
-        layeredPane.add(renameButton, Integer.valueOf(23));
-        layeredPane.add(editReq, Integer.valueOf(24));
+        layeredPane.add(lblListingTitle, Integer.valueOf(0));
+        layeredPane.add(lblCityName, Integer.valueOf(1));
+        layeredPane.add(lblCityQuarter, Integer.valueOf(2));
+        layeredPane.add(lblStreetName, Integer.valueOf(3));
+        layeredPane.add(lblStreetNumber, Integer.valueOf(4));
+        layeredPane.add(lblFloor, Integer.valueOf(5));
+        layeredPane.add(lblDoorNumber, Integer.valueOf(6));
+        layeredPane.add(lblPropertyType, Integer.valueOf(7));
+        layeredPane.add(lblPropertyArea, Integer.valueOf(8));
+        layeredPane.add(lblPrice, Integer.valueOf(9));
+        layeredPane.add(tfListingTitle, Integer.valueOf(10));
+        layeredPane.add(cbCity, Integer.valueOf(11));
+        layeredPane.add(tfCityQuarter, Integer.valueOf(12));
+        layeredPane.add(tfStreetName, Integer.valueOf(13));
+        layeredPane.add(tfStreetData, Integer.valueOf(14));
+        layeredPane.add(tfFloor, Integer.valueOf(15));
+        layeredPane.add(tfDoorNumber, Integer.valueOf(16));
+        layeredPane.add(cbPropertyType, Integer.valueOf(17));
+        layeredPane.add(tfPropertyArea, Integer.valueOf(18));
+        layeredPane.add(tfPrice, Integer.valueOf(19));
+        layeredPane.add(lblPhoneNumber, Integer.valueOf(20));
+        layeredPane.add(tfPhoneNumber, Integer.valueOf(21));
+        layeredPane.add(btnBack, Integer.valueOf(22));
+        layeredPane.add(btnApplyChanges, Integer.valueOf(23));
+        layeredPane.add(lblEditMessage, Integer.valueOf(24));
 
         this.setTitle("Редактиране на обява");
         this.setSize(500,650);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.add(layeredPane);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==backButton) {
+        if (e.getSource()== btnBack) {
             this.dispose();
         }
 
-        if (e.getSource()== renameButton) {
+        if (e.getSource()== btnApplyChanges) {
             //API Jframe
         }
     }

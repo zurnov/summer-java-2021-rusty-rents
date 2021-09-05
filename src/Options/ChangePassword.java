@@ -23,12 +23,10 @@ public class ChangePassword extends JFrame implements ActionListener {
     public ChangePassword(){
         appIcon = new ImageIcon("RustyRentsIcon.png");
 
-
         background = new JPanel();
         background.setBounds(0,0,500,700);
         background.setBackground(new Color(248,240,255));
         background.setVisible(true);
-
 
         currentPassword = new JLabel("Сегашна парола: ");
         currentPassword.setBounds(110, 21, 120, 15);
@@ -44,7 +42,6 @@ public class ChangePassword extends JFrame implements ActionListener {
         passwordsNotMatching.setForeground(Color.RED);
         passwordsNotMatching.setVisible(false);
 
-
         currentPasswordTextField = new JPasswordField();
         currentPasswordTextField.setBounds(220, 16, 195, 30);
 
@@ -53,7 +50,6 @@ public class ChangePassword extends JFrame implements ActionListener {
 
         confirmNewPasswordTextField = new JPasswordField();
         confirmNewPasswordTextField.setBounds(220, 135, 195, 30);
-
 
         changePassword = new JButton("Смени паролата");
         changePassword.setBounds(70, 200, 150, 50);
@@ -69,7 +65,6 @@ public class ChangePassword extends JFrame implements ActionListener {
         cancelOperation.setBackground(new Color(139,0,139));
         cancelOperation.setForeground(Color.WHITE);
 
-
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 500, 300);
         layeredPane.add(background, Integer.valueOf(0));
@@ -83,13 +78,14 @@ public class ChangePassword extends JFrame implements ActionListener {
         layeredPane.add(cancelOperation, Integer.valueOf(8));
         layeredPane.add(passwordsNotMatching, Integer.valueOf(9));
 
-
         this.setTitle("Смяна на парола");
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(500,300);
         this.add(layeredPane);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

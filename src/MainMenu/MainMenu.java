@@ -95,6 +95,8 @@ public class MainMenu extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(500,700);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.add(layeredPane);
     }

@@ -81,6 +81,8 @@ public class Options extends JFrame implements ActionListener {
         layeredPane.setOpaque(true);
 //        optionsPanel.add(layeredPane);
         this.add(layeredPane);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

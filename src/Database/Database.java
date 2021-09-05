@@ -1,5 +1,6 @@
 package Database;
 import java.sql.*;
+import java.text.CharacterIterator;
 
 public class Database {
 
@@ -149,6 +150,25 @@ public class Database {
 
     }
 
+    public static void addUserProfileFor(String username, String firstName, String lastName, String phoneNumber) {
+
+        int userId = getUserId(username);
+
+        query = "INSERT INTO Profiles VALUES(Users_Profiles_SEQ.NEXTVAL, " + userId + ", '"
+                + firstName + "', '" + lastName + "', '" + phoneNumber + "')";
+
+        System.out.println("Database.addUserProfileFor : insert query given username, first name, last name and phone number:");
+        System.out.println(query);
+
+        try {
+
+            statement.executeQuery(query);
+            statement.executeQuery("COMMIT");
+
+        } catch(Exception e) {System.out.println(e);}
+
+    }
+
     public static boolean checkEmailMatch(String email) {
 
         query = "SELECT Email_Address FROM Users WHERE User_Id = " + currentUserId;
@@ -251,6 +271,63 @@ public class Database {
         return rs;
 
     }
+    public static int getCityId(String cityName) {
+
+        query = "SELECT City_Id FROM Cities WHERE City_Name = '" + cityName + "'";
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+            if (rs.next())
+                return rs.getInt(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return -1;
+
+    }
+
+    public static String getPropertyType(String listingTitle) {
+
+        ResultSet rs = null;
+
+        String result = new String();
+
+        try {
+
+            rs = statement.executeQuery("SELECT Property_Id FROM Listings WHERE Listing_Title = '" + listingTitle + "'");
+
+            rs.next();
+            int propertyId = rs.getInt(1);
+
+            rs = statement.executeQuery("SELECT Property_Type FROM Properties WHERE Property_Id = " + propertyId);
+            rs.next();
+            result = rs.getString(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return result;
+
+    }
+
+    public static ResultSet getCityQuarters() {
+
+        query = "SELECT Quarter_Name FROM City_Quarters";
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+        } catch (Exception e) {System.out.println(e);}
+
+        return rs;
+
+    }
 
     public static ResultSet getProperties() {
 
@@ -270,11 +347,65 @@ public class Database {
 
     }
 
-    public static ResultSet getFilteredProperties(String title, String city, String type, String price) {
+    public static ResultSet getFilteredProperties(String city, String type, String price, boolean searchAll) {
 
         String qSelect = "SELECT L.Listing_Title, C.City_Name, P.Property_Type, L.Listing_Price_Bgn";
         String qFrom = "FROM Listings L JOIN Properties P ON P.Property_Id = L.Property_Id JOIN Cities C ON C.City_Id = P.City_Id";
-        String qWhere = "WHERE L.Listing_Title = '" + title + "' AND C.City_Name = '" + city + "' AND P.Property_Type = '" + type + "' AND L.Listing_Price_Bgn = '" + price + "'";
+
+        query = qSelect + " " + qFrom;
+
+        String qWhere = new String();
+
+        // 1. ! ! !
+        if (!city.isEmpty() && !type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "' AND P.Property_Type = '" + type + "' AND L.Listing_Price_Bgn <= '" + price + "'";
+        // 2. ! ! e
+        if (!city.isEmpty() && !type.isEmpty() && price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "' AND P.Property_Type = '" + type + "'";
+        // 3. ! e !
+        if (!city.isEmpty() && type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "' AND L.Listing_Price_Bgn <= '" + price + "'";
+        // 4. ! e e
+        if (!city.isEmpty() && type.isEmpty() && price.isEmpty())
+            qWhere = "WHERE C.City_Name = '" + city + "'";
+        // 5. e ! !
+        if (city.isEmpty() && !type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE P.Property_Type = '" + type + "' AND L.Listing_Price_Bgn <= '" + price + "'";
+        // 6. e ! e
+        if (city.isEmpty() && !type.isEmpty() && price.isEmpty())
+            qWhere = "WHERE P.Property_Type = '" + type + "'";
+        // 7. e e !
+        if (city.isEmpty() && type.isEmpty() && !price.isEmpty())
+            qWhere = "WHERE L.Listing_Price_Bgn <= '" + price + "'";
+        // 8. e e e - return all listings
+        if (city.isEmpty() && type.isEmpty() && price.isEmpty())
+            return getProperties();
+
+        if (!searchAll)
+            qWhere += " AND L.User_Id = " + currentUserId;
+
+        query += " " + qWhere;
+
+        //System.out.println(query);
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+        } catch (Exception e) {System.out.println(e);}
+
+        return rs;
+
+    }
+
+    public static ResultSet getPropertyDetails(String listingTitle) {
+
+        String qSelect = "SELECT L.Listing_Title, C.City_Name, Q.Quarter_Name, 'ул. \"' || P.Street_Name || '\" № ' || P.Street_Number, P.Floor, P.Door_Number,"
+                + " " + "P.Property_Type, P.Property_Area_Sqm, L.Listing_Price_Bgn, L.Listing_Phone_Number, P.Location_Url";
+        String qFrom = "FROM Listings L JOIN Properties P USING (Property_Id) JOIN Cities C USING (City_Id) JOIN City_Quarters Q USING (Quarter_Id)";
+        String qWhere = "WHERE L.Listing_Title = '" + listingTitle + "'";
 
         query = qSelect + " " + qFrom + " " + qWhere;
 
@@ -287,6 +418,76 @@ public class Database {
         } catch (Exception e) {System.out.println(e);}
 
         return rs;
+
+    }
+
+    public static ResultSet getCurrentUserProperties() {
+
+        String qSelect = "SELECT L.Listing_Title, C.City_Name, P.Property_Type, L.Listing_Price_Bgn";
+        String qFrom = "FROM Listings L JOIN Properties P ON P.Property_Id = L.Property_Id JOIN Cities C ON C.City_Id = P.City_Id";
+        String qWhere = "WHERE L.User_Id = '" + currentUserId + "'";
+
+        query = qSelect + " " + qFrom + " " + qWhere;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return rs;
+
+    }
+
+    public static void addNewListing(String title, String city, String quarter,
+                                     String streetName, String streetNumber,
+                                     String floor, String doorNumber, String type,
+                                     String area, String price, String phone) {
+
+        try {
+
+            // get city id
+            ResultSet rs = statement.executeQuery("SELECT City_Id FROM Cities WHERE City_Name = '" + city + "'");
+            rs.next();
+            int cityId = rs.getInt(1);
+
+            // handle quarters
+            rs = statement.executeQuery("SELECT Quarter_Id FROM City_Quarters WHERE Quarter_Name = '" + quarter + "'");
+            int quarterId;
+            if (rs.next())
+                quarterId = rs.getInt(1);
+            else {
+                rs = statement.executeQuery("SELECT Quarters_SEQ.NEXTVAL FROM Dual");
+                rs.next();
+                quarterId = rs.getInt(1);
+                statement.executeQuery("INSERT INTO City_Quarters VALUES(" + quarterId + ", '" + quarter + "', " + cityId + ")");
+                statement.executeQuery("COMMIT");
+            }
+
+            // handle floor and doorNumber
+            if (floor.isBlank())
+                floor = "null";
+            if (doorNumber.isBlank())
+                doorNumber = "null";
+
+            rs = statement.executeQuery("SELECT Properties_SEQ.NEXTVAL FROM Dual");
+            rs.next();
+            int propertyId = rs.getInt(1);
+
+            // insert property
+            statement.executeQuery("INSERT INTO Properties VALUES(" + propertyId + ", " + cityId + ", " + quarterId
+                    + ", '" + streetName + "', " + streetNumber + ", " + floor + ", " + doorNumber + ", '" + type
+                    + "', " + area + ", null)");
+            statement.executeQuery("COMMIT");
+
+            // insert listing
+            statement.executeQuery("INSERT INTO Listings VALUES(Listings_SEQ.NEXTVAL, '" + title + "', " + price
+                    + ", '" + phone + "', " + propertyId + ", " + currentUserId + ")");
+            statement.executeQuery("COMMIT");
+
+        } catch(Exception e) {System.out.println(e);}
 
     }
 
