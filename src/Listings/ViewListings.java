@@ -172,7 +172,7 @@ public class ViewListings extends JFrame implements ActionListener {
                 String typeFilter = cbPropertyTypeFilter.getSelectedItem().toString();
                 String priceFilter = tfMaxPriceFilter.getText();
 
-                ResultSet rs = Database.getFilteredProperties(cityFilter, typeFilter, priceFilter);
+                ResultSet rs = Database.getFilteredProperties(cityFilter, typeFilter, priceFilter, true);
 
                 try {
                     while (rs.next()) {

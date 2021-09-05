@@ -189,7 +189,7 @@ public class ListingDetails extends JFrame implements ActionListener {
         layeredPane.add(apiButton, Integer.valueOf(23));
         layeredPane.add(listingReq, Integer.valueOf(24));
 
-        this.setTitle("Детайли на обява");
+        this.setTitle("Подробности за обява");
         this.setSize(500,650);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
