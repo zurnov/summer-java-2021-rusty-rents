@@ -142,10 +142,16 @@ public class ListingDetails extends JFrame implements ActionListener {
         apiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
-                    Desktop desktop = java.awt.Desktop.getDesktop();
-                    URI oURL = new URI(rs.getString(11));
-                    desktop.browse(oURL);
+                    if (rs.getString(11).isEmpty()) {
+                        System.out.println("No map url for given listing");
+                    }
+                    else {
+                        Desktop desktop = java.awt.Desktop.getDesktop();
+                        URI oURL = new URI(rs.getString(11));
+                        desktop.browse(oURL);
+                    }
                 } catch (Exception exc) {
                     exc.printStackTrace();
                 }
