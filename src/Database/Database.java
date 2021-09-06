@@ -491,4 +491,32 @@ public class Database {
 
     }
 
+    public static void deleteListing(String title) {
+
+        query = "SELECT Listing_Id, Property_Id FROM Listings WHERE Listing_Title = '" + title + "'";
+
+        int listingId, propertyId;
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+            rs.next();
+
+            listingId = rs.getInt(1);
+            propertyId = rs.getInt(2);
+
+            query = "DELETE FROM Listings WHERE Listing_Id = " + listingId;
+            statement.executeQuery(query);
+
+            query = "DELETE FROM Properties WHERE Property_Id = " + propertyId;
+            statement.executeQuery(query);
+
+            statement.executeQuery("COMMIT");
+
+        } catch(Exception e) {System.out.println(e);}
+
+    }
+
 }
