@@ -104,6 +104,7 @@ public class ChangeEmail extends JFrame implements ActionListener {
 
             if (isConfirmationSuccessful && Database.checkEmailMatch(currentEmailData.getText())){
                 Database.changeEmail(getNewEmail);
+                this.dispose();
             }
             else {
                 // TODO SWING : Label "Грешно въведен настоящ имейл" under text field for current email

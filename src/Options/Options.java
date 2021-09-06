@@ -30,33 +30,33 @@ public class Options extends JFrame implements ActionListener {
 
 
         resolutionButton.setBounds(120,50,250,50);
-        resolutionButton.setText("Resolution");
+        resolutionButton.setText("Промяна на език");
         resolutionButton.setBackground(new Color(139,0,139));
         resolutionButton.setForeground(Color.white);
         resolutionButton.setFocusable(false);
 
         changeThemeButton.setBounds(120,130,250,50);
-        changeThemeButton.setText("Change Theme");
+        changeThemeButton.setText("Промяна на тема");
         changeThemeButton.setBackground(new Color(139,0,139));
         changeThemeButton.setForeground(Color.white);
         changeThemeButton.setFocusable(false);
 
         changeEmailButton.setBounds(120,210,250,50);
-        changeEmailButton.setText("Change Email");
+        changeEmailButton.setText("Промяна на Email");
         changeEmailButton.addActionListener(this);
         changeEmailButton.setBackground(new Color(139,0,139));
         changeEmailButton.setForeground(Color.white);
         changeEmailButton.setFocusable(false);
 
         changePasswordButton.setBounds(120,290,250,50);
-        changePasswordButton.setText("ChangePassword");
+        changePasswordButton.setText("Промяна на парола");
         changePasswordButton.addActionListener(this);
         changePasswordButton.setBackground(new Color(139,0,139));
         changePasswordButton.setForeground(Color.white);
         changePasswordButton.setFocusable(false);
 
         termsAndConditionsButton.setBounds(120,370,250,50);
-        termsAndConditionsButton.setText("Terms and Conditions");
+        termsAndConditionsButton.setText("Условия за ползване");
         termsAndConditionsButton.setBackground(new Color(139,0,139));
         termsAndConditionsButton.setForeground(Color.white);
         termsAndConditionsButton.setFocusable(false);

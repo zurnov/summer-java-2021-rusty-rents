@@ -100,6 +100,7 @@ public class ChangePassword extends JFrame implements ActionListener {
 
             if (isConfirmationSuccessful && Database.checkPasswordMatch(new String(currentPasswordTextField.getPassword()))) {
                 Database.changePassword(getNewPassword);
+                this.dispose();
             }
             else {
                 // TODO SWING : Label "Грешно въведена настояща парола" under text field for current password
