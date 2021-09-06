@@ -80,7 +80,10 @@ public class Options extends JFrame implements ActionListener {
         layeredPane.setBackground(new Color(248,240,255));
         layeredPane.setOpaque(true);
 //        optionsPanel.add(layeredPane);
+
+
         this.add(layeredPane);
+        this.setTitle("Настройки");
 
         this.setLocationRelativeTo(null);
         this.setVisible(true);

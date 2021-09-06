@@ -92,7 +92,7 @@ public class MainMenu extends JFrame implements ActionListener{
         layeredPane.add(greetingsText, Integer.valueOf(7));
 
         this.setIconImage(appIcon.getImage());
-        this.setTitle("Rusty Rents test.Main Menu");
+        this.setTitle("Rusty Rents");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(500,700);

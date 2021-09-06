@@ -54,7 +54,7 @@ public class LogIn extends JFrame implements ActionListener {
         headerPanel.add(headerImage,BorderLayout.CENTER);
         headerImage.setPreferredSize(new Dimension(100,100));
 
-        JLabel usernameLabel=new JLabel("Username: ");
+        JLabel usernameLabel=new JLabel("Потр. име:");
         usernameLabel.setPreferredSize(new Dimension(100,100));
         bodyPanel.add(usernameLabel,BorderLayout.CENTER);
 
@@ -62,7 +62,7 @@ public class LogIn extends JFrame implements ActionListener {
         usernameTextField.setPreferredSize(new Dimension(100,20));
         bodyPanel.add(usernameTextField);
 
-        JLabel passwordLabel=new JLabel("Password: ");
+        JLabel passwordLabel=new JLabel("Парола:");
         passwordLabel.setPreferredSize(new Dimension(100,100));
         bodyPanel.add(passwordLabel);
 
@@ -71,20 +71,21 @@ public class LogIn extends JFrame implements ActionListener {
         passwordTextField.setEchoChar('*');
         bodyPanel.add(passwordTextField);
 
-        logInButton = new JButton("Log In");
+        logInButton = new JButton("Вписване");
         logInButton.addActionListener(this);
-        logInButton.setToolTipText("Log into your existing account");
+        logInButton.setToolTipText("Впишете се с Ваш профил");
         logInButton.setBackground(new Color(139,0,139));
         logInButton.setForeground(Color.WHITE);
         footerPanel.add(logInButton);
 
-        registerButton = new JButton("Register");
+        registerButton = new JButton("Регистрация");
         registerButton.addActionListener(this);
-        registerButton.setToolTipText("Create a account for our platform");
+        registerButton.setToolTipText("Създайте нов профил");
         registerButton.setBackground(new Color(139,0,139));
         registerButton.setForeground(Color.WHITE);
         footerPanel.add(registerButton);
 
+        this.setTitle("Rusty Rents");
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -106,7 +107,7 @@ public class LogIn extends JFrame implements ActionListener {
 
             }
             else {
-                // TODO SWING : Red label for failed login attempt ("Неправилно въведени данни")
+                System.out.println("Неправилно въведени данни");
             }
         }
     }

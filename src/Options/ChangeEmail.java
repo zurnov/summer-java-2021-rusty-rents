@@ -37,7 +37,7 @@ public class ChangeEmail extends JFrame implements ActionListener {
         confirmEmail = new JLabel("Потвърди email: ");
         confirmEmail.setBounds(115, 140, 150, 15);
 
-        emailsNotMatching = new JLabel("Имейлите не съвпадат.");
+        emailsNotMatching = new JLabel("Грешно въведени данни!");
         emailsNotMatching.setBounds(170,170,150,30);
         emailsNotMatching.setForeground(Color.RED);
         emailsNotMatching.setVisible(false);
@@ -97,10 +97,12 @@ public class ChangeEmail extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==changeEmail) {
 
+            String getCurrentEmail = currentEmailData.getText();
             getNewEmail = newEmailData.getText();
             getConfirmEmail = confirmEmailData.getText();
 
-            isConfirmationSuccessful = (getNewEmail.equals(getConfirmEmail));
+            isConfirmationSuccessful = (getNewEmail.equals(getConfirmEmail) && !getNewEmail.isBlank()
+                                                                            && !getCurrentEmail.isBlank());
 
             if (isConfirmationSuccessful && Database.checkEmailMatch(currentEmailData.getText())){
                 Database.changeEmail(getNewEmail);

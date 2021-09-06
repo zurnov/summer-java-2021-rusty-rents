@@ -559,6 +559,26 @@ public class Database {
 
     }
 
+    public static String getCurrentUserEmail() {
+
+        query = "SELECT Email_Address FROM Users WHERE User_Id = " + currentUserId;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+            rs.next();
+
+            return rs.getString(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return null;
+
+    }
+
     public static String getCurrentUserPhoneNumber() {
 
         query = "SELECT Phone_Number FROM Profiles WHERE User_Id = " + currentUserId;

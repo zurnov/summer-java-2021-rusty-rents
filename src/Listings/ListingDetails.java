@@ -82,7 +82,7 @@ public class ListingDetails extends JFrame implements ActionListener {
         phoneNumber.setBounds(lx,y11, lwidth, lheight);
 
         listingReq = new JLabel("Подробности за обява:");
-        listingReq.setBounds(120,20,300,15);
+        listingReq.setBounds(150,20,300,15);
         listingReq.setForeground(Color.magenta);
 
         try {
@@ -145,7 +145,7 @@ public class ListingDetails extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
 
                 try {
-                    if (rs.getString(11).isEmpty()) {
+                    if (rs.getString(11).isBlank()) {
                         System.out.println("No map url for given listing");
                     }
                     else {

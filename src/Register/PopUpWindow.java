@@ -39,7 +39,7 @@ public class PopUpWindow extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.setIconImage(logo.getImage());
-        this.setTitle("Successful Login");
+        this.setTitle("Успешна регистрация");
 
         this.setSize(500, 160);
         this.setResizable(false);

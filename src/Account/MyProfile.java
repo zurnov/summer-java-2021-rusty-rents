@@ -4,14 +4,13 @@ import Database.*;
 import MainMenu.*;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MyProfile extends JFrame implements ActionListener {
 
-    JButton btnBack, btnEditDetails;
+    JButton btnBack, btnEditPhone, btnEditEmail;
 
     private final int LEFT_LABELS_X = 127;
     private final int RIGHT_LABELS_X = 225;
@@ -35,9 +34,9 @@ public class MyProfile extends JFrame implements ActionListener {
 
         // left labels
         JLabel lblFirstName = new JLabel("Име:");
-        lblFirstName.setBounds(LEFT_LABELS_X,170, 150, 15);
+        lblFirstName.setBounds(141,170, 150, 15);
 
-        JLabel lblLastName = new JLabel("Фамилия:");
+        JLabel lblLastName = new JLabel("Email:");
         lblLastName.setBounds(LEFT_LABELS_X, 220, 150, 15);
 
         JLabel lblPhoneNumber = new JLabel("Телефон:");
@@ -47,10 +46,11 @@ public class MyProfile extends JFrame implements ActionListener {
         lblNumOfListings.setBounds(LEFT_LABELS_X, 320, 130, 15);
 
         // right labels
-        JLabel lbl2FirstName = new JLabel(Database.getCurrentUserFirstName());
-        lbl2FirstName.setBounds(RIGHT_LABELS_X, 170, 150, 15);
+        JLabel lbl2FirstName = new JLabel(Database.getCurrentUserFirstName() + " "
+                                                + Database.getCurrentUserLastName());
+        lbl2FirstName.setBounds(RIGHT_LABELS_X, 170, 200, 15);
 
-        JLabel lbl2LastName = new JLabel(Database.getCurrentUserLastName());
+        JLabel lbl2LastName = new JLabel(Database.getCurrentUserEmail());
         lbl2LastName.setBounds(RIGHT_LABELS_X, 220, 150, 15);
 
         JLabel lbl2PhoneNumber = new JLabel(Database.getCurrentUserPhoneNumber());
@@ -59,13 +59,20 @@ public class MyProfile extends JFrame implements ActionListener {
         JLabel lbl2NumOfListings = new JLabel(Integer.toString(Database.getCurrentUserListingCount()));
         lbl2NumOfListings.setBounds(RIGHT_LABELS_X, 320, 150, 15);
 
+        // buttons
+        btnEditEmail = new JButton("Email:");
+        btnEditEmail.setBounds(100,215, 110, 25);
+        btnEditEmail.setBackground(new Color(139,0,139));
+        btnEditEmail.setForeground(Color.WHITE);
+        btnEditEmail.setFocusable(false);
+        btnEditEmail.addActionListener(this);
 
-        btnEditDetails = new JButton("Телефон:");
-        btnEditDetails.setBounds(100,265, 110, 25);
-        btnEditDetails.setBackground(new Color(139,0,139));
-        btnEditDetails.setForeground(Color.WHITE);
-        btnEditDetails.setFocusable(false);
-        btnEditDetails.addActionListener(this);
+        btnEditPhone = new JButton("Телефон:");
+        btnEditPhone.setBounds(100,265, 110, 25);
+        btnEditPhone.setBackground(new Color(139,0,139));
+        btnEditPhone.setForeground(Color.WHITE);
+        btnEditPhone.setFocusable(false);
+        btnEditPhone.addActionListener(this);
 
 
         JLayeredPane layeredPane = new JLayeredPane();
@@ -80,7 +87,8 @@ public class MyProfile extends JFrame implements ActionListener {
         layeredPane.add(lbl2LastName, Integer.valueOf(7));
         layeredPane.add(lbl2PhoneNumber, Integer.valueOf(8));
         layeredPane.add(lbl2NumOfListings, Integer.valueOf(9));
-        layeredPane.add(btnEditDetails, Integer.valueOf(10));
+        layeredPane.add(btnEditEmail, Integer.valueOf(10));
+        layeredPane.add(btnEditPhone, Integer.valueOf(11));
 
         this.setTitle("Моят профил");
         this.setIconImage(appIcon.getImage());

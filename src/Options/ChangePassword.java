@@ -93,10 +93,12 @@ public class ChangePassword extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== changePassword){
 
+            String getOldPassword = currentPasswordTextField.getPassword().toString();
             getNewPassword = new String(newPasswordTextField.getPassword());
             getConfirmPassword = new String(confirmNewPasswordTextField.getPassword());
 
-            isConfirmationSuccessful = (getNewPassword.equals(getConfirmPassword));
+            isConfirmationSuccessful = (getNewPassword.equals(getConfirmPassword) && !getNewPassword.isBlank()
+                                                                                    && !getOldPassword.isBlank());
 
             if (isConfirmationSuccessful && Database.checkPasswordMatch(new String(currentPasswordTextField.getPassword()))) {
                 Database.changePassword(getNewPassword);

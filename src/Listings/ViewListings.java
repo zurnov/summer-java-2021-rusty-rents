@@ -226,7 +226,7 @@ public class ViewListings extends JFrame implements ActionListener {
             }
         });
 
-        this.setTitle("Преглед на обяви˜");
+        this.setTitle("Преглед на обяви");
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(new Color(248,240,255));
