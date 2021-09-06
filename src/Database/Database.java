@@ -519,4 +519,24 @@ public class Database {
 
     }
 
+    public static String getCurrentUserFirstName() {
+
+        query = "SELECT First_Name FROM Profiles WHERE User_Id = " + currentUserId;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+            rs.next();
+
+            return rs.getString(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return null;
+
+    }
+
 }

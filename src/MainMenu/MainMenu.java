@@ -1,5 +1,6 @@
 package MainMenu;
 
+import Database.*;
 import Account.*;
 import LogIn.*;
 import Options.*;
@@ -72,9 +73,9 @@ public class MainMenu extends JFrame implements ActionListener{
         logoImage.setIcon(appLogo);
         logoImage.setBounds(130, 0, 300, 300);
 
-        JLabel greetingsText = new JLabel("ДОБРЕ ДОШЪЛ, PLACEHOLDER!");
-        greetingsText.setBounds(150, 230, 200, 50);
-        greetingsText.setForeground(new Color(139,0,139));
+        JLabel greetingsText = new JLabel("Добре дошъл, " + Database.getCurrentUserFirstName());
+        greetingsText.setBounds(10, 510, 200, 50);
+        greetingsText.setForeground(new Color(255, 255, 255));
 
         JPanel mainMenuPanel = new JPanel();
         mainMenuPanel.add(backgroundLabel);
