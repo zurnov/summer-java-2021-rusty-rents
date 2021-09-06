@@ -539,4 +539,64 @@ public class Database {
 
     }
 
+    public static String getCurrentUserLastName() {
+
+        query = "SELECT Last_Name FROM Profiles WHERE User_Id = " + currentUserId;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+            rs.next();
+
+            return rs.getString(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return null;
+
+    }
+
+    public static String getCurrentUserPhoneNumber() {
+
+        query = "SELECT Phone_Number FROM Profiles WHERE User_Id = " + currentUserId;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+            rs.next();
+
+            return rs.getString(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return null;
+
+    }
+
+    public static int getCurrentUserListingCount() {
+
+        query = "SELECT COUNT(*) FROM Listings WHERE User_Id = " + currentUserId;
+
+        ResultSet rs = null;
+
+        try {
+
+            rs = statement.executeQuery(query);
+
+            rs.next();
+
+            return rs.getInt(1);
+
+        } catch(Exception e) {System.out.println(e);}
+
+        return -1;
+
+    }
+
 }
