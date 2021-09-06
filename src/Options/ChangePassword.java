@@ -115,7 +115,6 @@ public class ChangePassword extends JFrame implements ActionListener {
         }
         else if(e.getSource()==cancelOperation){
             this.dispose();
-            Options options=new Options();
         }
     }
 }
