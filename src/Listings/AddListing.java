@@ -131,7 +131,7 @@ public class AddListing extends JFrame implements ActionListener {
         tfPrice = new JTextField();
         tfPrice.setBounds(lxData,y10, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
-        tfPhoneNumber = new JTextField();
+        tfPhoneNumber = new JTextField(Database.getCurrentUserPhoneNumber());
         tfPhoneNumber.setBounds(lxData,y11, ELEMENTS_WIDTH, ELEMENTS_HEIGHT);
 
         btnBack = new JButton(backIcon);
@@ -144,7 +144,7 @@ public class AddListing extends JFrame implements ActionListener {
 
         btnApplyChanges = new JButton("Добави");
         btnApplyChanges.setBounds(bx1,by, BUTTONS_WIDTH, BUTTONS_HEIGHT);
-        btnApplyChanges.setBackground(new Color(139,0,139));
+        btnApplyChanges.setBackground(new Color(125,0,139));
         btnApplyChanges.setForeground(Color.WHITE);
         btnApplyChanges.setFocusable(false);
         btnApplyChanges.addActionListener(this);
@@ -179,7 +179,7 @@ public class AddListing extends JFrame implements ActionListener {
         layeredPane.add(lblEditMessage, Integer.valueOf(24));
 
         this.setTitle("Добавяне на обява");
-        this.setSize(500,650);
+        this.setSize(475,650);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setLocationRelativeTo(null);
@@ -191,6 +191,7 @@ public class AddListing extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()== btnBack) {
             this.dispose();
+            new MyListings();
         }
 
         if (e.getSource()== btnApplyChanges) {
