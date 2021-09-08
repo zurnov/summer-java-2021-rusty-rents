@@ -287,7 +287,8 @@ public class MyListings extends JFrame implements ActionListener {
             System.out.println(selectedRowTitle);
 
             Database.deleteListing(selectedRowTitle);
-            table.updateUI();
+            this.dispose();
+            new MyListings();
         }
 
         if (e.getSource() == btnAddListing) {

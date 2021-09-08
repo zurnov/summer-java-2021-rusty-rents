@@ -379,7 +379,10 @@ public class Database {
             qWhere = "WHERE L.Listing_Price_Bgn <= '" + price + "'";
         // 8. e e e - return all listings
         if (city.isEmpty() && type.isEmpty() && price.isEmpty())
-            return getProperties();
+            if (searchAll)
+                return getProperties();
+            else
+                return getCurrentUserProperties();
 
         if (!searchAll)
             qWhere += " AND L.User_Id = " + currentUserId;
